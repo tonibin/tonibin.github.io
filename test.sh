@@ -1,0 +1,1 @@
+echo "Site update: $(date)"

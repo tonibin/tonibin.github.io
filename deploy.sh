@@ -1,8 +1,9 @@
-# Aggiungi tutti i tuoi file
+# Aggiungi tutti i file
 git add .
 
-# Crea il primo commit
-git commit -m "Site update: ${date}"
+# Crea il file commit
+git commit -m "Site update: $(date)"
 
 # Carica tutto su GitHub
 git push -u origin main
+
