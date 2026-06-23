@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>tbas</title>
+    <meta name="generator" content="LibreOffice 6.1.5.2 (Linux)">
+    <meta name="author" content="Antonio">
+    <meta name="created" content="00:00:00">
+    <meta name="changed" content="2019-08-03T16:31:00.688315293">
+    <meta name="description" content="BASIC interpreter">
+    <style type="text/css">
+		@page { size: 21cm 29.7cm; margin-left: 2cm; margin-right: 1cm; margin-top: 1cm; margin-bottom: 1cm }
+		p { margin-bottom: 0.25cm; color: #000000; line-height: 115%; background: transparent }
+		h4 { margin-top: 0.21cm; margin-bottom: 0.21cm; color: #000000; background: transparent; page-break-after: avoid }
+		h4.western { font-family: "Liberation Serif", serif; font-size: 12pt; font-weight: bold }
+		h4.cjk { font-family: "Droid Sans Fallback"; font-size: 12pt; font-weight: bold }
+		h4.ctl { font-family: "Droid Sans Devanagari"; font-size: 12pt; font-weight: bold }
+		td p { color: #000000; background: transparent }
+		a:link { color: #000099; so-language: zxx; text-decoration: underline }
+		a:visited { color: #990099; so-language: zxx; text-decoration: underline }
+		em { font-style: italic }
+		cite { font-style: italic }
+		samp { font-family: "Liberation Mono", monospace }
+	</style>
+  </head>
+  <body dir="ltr" style="       color: black; background-color: #cfffd8;" vlink="#990099"
+    link="#000099" lang="en-GB">
+    <p style="margin-bottom: 0cm" align="center"> <font style="font-size: 24pt"
+        size="6">tbas</font></p>
+    <p style="margin-bottom: 0cm" align="center"><font style="font-size: 14pt" size="4"><b>BASIC
+          interpreter</b></font></p>
+    <p style="margin-bottom: 0cm" align="center">&nbsp;</p>
+    <p style="margin-bottom: 0cm" align="justify">&nbsp;</p>
+    <hr>
+    <p style="margin-bottom: 0cm" align="justify"><a href="#Introduction">Introduction</a><br>
+      <a href="#Documentation">Documentation</a><br>
+      <a href="#Installation">Installation</a><br>
+      <a href="#Download">Download tbas</a></p>
+    <hr>
+    <p align="justify">&nbsp;</p>
+    <h4 class="western" align="justify"><a name="Introduction"></a>Introduction</h4>
+    <p align="justify">Welcome to tbas, a console interpreter for the BASIC
+      language, in a structured version (no need for line numbers even if it can
+      deal with them), complete with many math functions and many many features!</p>
+    <p> </p>
+    <h4 class="western" align="justify"><a name="Documentation"></a>Documentation</h4>
+    <p align="justify">Available documentation (which is contained into the
+      downloadable package and is linked here for your convenience):</p>
+    <ul>
+      <li>
+        <p align="justify">The tbas manual for current version in <a href="doc/tbas_manual.pdf">pdf</a>
+          format. </p>
+      </li>
+      <li>
+        <p align="justify">The manual for current version in <a href="doc/tbas_manual.txt">textual</a>
+          format. </p>
+      </li>
+    </ul>
+    <br>
+    <ul>
+    </ul>
+    <h4 class="western" align="justify"><a name="Installation"></a>Installation</h4>
+    <p align="justify">The tbas executable, before use, must be compiled and
+      installed. I suggest the following very easy procedure in 4 steps (use the
+      terminal):</p>
+    <p align="justify"><br>
+      1) Copy the package somewhere, and unpack it; it will unpack into a
+      directory named tbas.1.0.XXX.src;</p>
+    <p align="justify"><br>
+      2) Now, choose a directory in your path, where executables will be saved;
+      let's assume it's <font face="monospace">~/bin</font> (that is the
+      sub-directory <font face="monospace">/bin</font> in your Home directory,
+      but you can choose any). Edit the Makefile to customize addresses for <font
+        face="monospace">tbas</font> (e.g., among the rest, change the install
+      directory to <font face="monospace">~/bin</font>,&nbsp;commenting the
+      undesired destinations and leaving un-commented ONE ONLY valid
+      destination) using the destination directory you chose.</p>
+    <p align="justify"><br>
+      3) get into tbas source directory and type the following (be sure to have
+      <font face="monospace">gcc</font> installed):</p>
+    <p align="justify"><br>
+      <font face="monospace">$&nbsp;make</font><br>
+      <font face="monospace">$&nbsp;make install</font></p>
+    <p align="justify"><br>
+      (the latter may require root privileges if you try to install tbas into
+      system directories, as suggested by default in the Makefile).<br>
+      <br>
+      <font color="#ff0000"><i>For Mac Users</i></font><font color="#ff0000">:
+        in case you want to install </font>tbas<font color="#ff0000"> into some
+        system directory (e.g. </font><font color="#ff0000"><font face="monospace">/user/local/bin</font></font><font
+        color="#ff0000">), remember that root privileges are not required, as
+        long as you can access an administrative login: in this case,
+        after&nbsp;</font><font color="#ff0000"><font face="monospace">make</font></font><font
+        color="#ff0000">, login as an administrator with</font></p>
+    <p align="justify"><br>
+      <font color="#ff0000"><font face="monospace">$ su </font></font> </p>
+    <p align="justify"><br>
+      <font color="#ff0000">(being the username of the administrator) - you will
+        be requested of a password - and then install the software with</font></p>
+    <p align="justify"><br>
+      <font color="#ff0000"><font face="monospace">$ sudo make install</font></font></p>
+    <p align="justify"><font color="#ff0000"><font face="monospace">$ exit</font></font></p>
+    <p align="justify"><br>
+      4) now type the following to test the correct installation:</p>
+    <p align="justify"><br>
+      <font face="monospace">$ tbas –help</font></p>
+    <p align="justify"><br>
+      This shows the basic features of tbas and you're done!</p>
+    <h4 class="western" align="justify"><br>
+      <a name="Download"></a>Download tbas<br>
+      <br>
+    </h4>
+    <table width="100%" cellspacing="1" cellpadding="2">
+      <colgroup><col width="256*"> </colgroup>
+      <tbody>
+        <tr>
+          <td style="border: 1px double #808080; padding: 0.05cm" width="100%">
+            <p> <u>Version 1.0.Beta</u> (September 15, 2019)</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-bottom: 0cm" align="justify"><br>
+      <i>Well, this new release requested a quite endless turn of changes, and
+        for all the new features and corrections I </i><i>thank </i><i><b>Bruce
+          Axtens</b></i><i><span style="font-weight: normal"> </span></i><i><span
+          style="font-weight: normal">and </span></i><i><b>Tom Lake</b></i><i>
+      </i><i>who, along with my friend </i><i><b>Ian Jones</b></i><i><span style="font-weight: normal">,
+          helped me to release this Beta version... Thanks also to Marcus Cruz,
+          who suggested a couple of interesting improvements</span></i><br>
+      <br>
+      You can download tbas Beta sources <a href="distrib/tbas.1.0.Beta.src.zip">here</a>.
+    </p>
+    <p style="margin-bottom: 0cm" align="justify">The Windows binaries (gently
+      provided by Bruce) can be found here:</p>
+    <p style="margin-bottom: 0cm" align="justify"><a href="distrib/tbas.1.0.Beta.cygwin.32.bin.zip">Windows
+        32bit binary<br>
+      </a></p>
+    <p style="margin-bottom: 0cm" align="justify"><a href="distrib/tbas.1.0.Beta.cygwin.64.bin.zip">Windows
+        64bit binary</a></p>
+    <p style="margin-bottom: 0cm" align="justify"><i>The introduction of the
+        interactive session (suggested by Tom) led to a number of problems
+        (mainly the error detection system and the
+        insertion/deletion/substitution of lines), problems that Bruce, Tom and
+        Ian signaled in great quantity during the development phase, and that I
+        finally manage to solve. I mean most of them. This required rewriting
+        part of the code to adapt it to the interactive session. In any case now
+        it's time to let you use it and test it. <br>
+      </i></p>
+    <p style="margin-bottom: 0cm" align="justify"><strong><em>WARNING: I removed
+          all differences from Unix and not-Unix systems; tbas can now be
+          compiled under Linux only, or under Windows with CygWin/MinGW
+          installed and run from there (though not every feature is guaranteed
+          to work). It's too onerous and overwhelming treating more than one
+          Operating System...</em></strong> </p>
+    <em> </em>
+    <p style="margin-bottom: 0cm" align="justify"><u>New additions</u>:</p>
+    <ul>
+      <li>added the interactive session (enabled by option -i) . This is the
+        main innovation with respect to the Alpha (build 3) version</li>
+      <li>added ON and OFF as synonyms to TRUE and FALSE</li>
+      <li>added FREE/FREE$</li>
+      <li>added functions ALN/ALN() and ELN/ELN() to return the number of the
+        line where an interrupt/error occurred</li>
+      <li>The introduction of the interactive session, to let the user adopt
+        options from there, forced me to separate the Header and Timing features
+        in the starting option;&nbsp; now -H enables the header only, and -T
+        enables the timing (this was asked by Tom)</li>
+      <li>added the ? command synonym of PRINT</li>
+      <li>added the command PIPE that stores in an internal buffer the output of
+        the execution of the bash command contained in its string argument and
+        coming from a pipe source, and the string function PIPE$ that returns
+        the content of the PIPE buffer, as a whole or as one slice of it. Bruce
+        was the one who proposed this</li>
+      <li>added # as the equivalent operator of &lt;&gt;</li>
+      <li>added the LTRIM$ and RTRIM$ string functions</li>
+      <li>added option -D, that disables the inversion of colors in debugging
+        (asked by Bruce)</li>
+      <li>added the EXEC statement to execute the string argument as a BASIC
+        statement, an ideal companion of COMMAND$</li>
+      <li>added UNTRACE as synonym of TRACE OFF; also added to TRACE the ability
+        to print the variable content if TRACE is followed by the variable
+        index, or print the variable content when it changes if TRACE is
+        followed by the variable name</li>
+      <li>added the numeric functions NUMBER(A$), PICT(A$) and ALPHA(A$), with
+        string arguments</li>
+      <li>added the PROGRAM/TITLE/_TITLE statements</li>
+      <li>added option -L to list the program indented rather than executing it</li>
+      <li>added option -N, to print eleven spaces enclosed in quotes in place of
+        a void string when a MAT PRINT is used to print a string array; in ALpha
+        (build 3) that token was printed by default, but now you can choose
+        whether use it or not by using option N; the default behavior is now to
+        print the 'real' empty string. Correspondingly, I added the OPTION NULLS
+        ON/OFF to change the behavior during run-time.</li>
+      <li>added the AS STRING and the AS REAL specifiers in DECLARE; they are
+        simply ignored (apart for some check) because the two types are the
+        default types in BASIC, but they help in writing clearer definitions,
+        and make programs compatible with other dialects.</li>
+      <li>added the SWAP statement, by a precise request by Tom</li>
+      <li>added the COPY statement, that copies one array onto another</li>
+      <li>added the REM PRAGMA statement, to pass to program some console
+        options; PRAGMA does not execute in the interactive sessions. This
+        statement (which is invisible for other BASICs) lets declare options in
+        the PRAGMA line and avoid the need to specify which options must be
+        invoked in the command line to execute the program you're deploying </li>
+      <li>added the REAL() function, which is simply ignored, because all
+        numbers in tbas are real (in the math sense). Again, this makes the
+        program clearer and maybe compatible with other dialects</li>
+      <li>added the two system variables LASTCHANNEL and FREECHANNEL that return
+        respectively the last successfully opened channel number and the first
+        available (i.e. not opened with OPEN, FILE or FILES) channel number.
+        This is a Bruce request. These variables, like CLK or DATE, cannot be
+        instantiated by the user, but their content can be assigned to normal
+        variables</li>
+      <li>added the statements ERRPRINT, OPTION ERRORSTREAM ON|OFF and the
+        system variable STREAM (requested by Bruce)</li>
+      <li>added PROGRAM$, a system string variable that returns the name of the
+        current file under execution; in the interactive session, reports the
+        file loaded/saved as last. (requested by Bruce)</li>
+      <li>added the passing of arrays to SUBs, specified by the name and the ()
+        token</li>
+      <li>added MONTH$ and WEEKDAY$ as synonyms of MONTH$(0) and WEEKDAY$(0)</li>
+      <li>added the new options -e and --exec that execute immediately the
+        loaded program (it must be used with option -i). If no program is given
+        as argument to be loaded, the empty program is run (i.e., the empty
+        lines separating the running before and after execution are printed, and
+        nothing more). If -i is not used, -e alone is ignored</li>
+      <li>added option --interactive as a synonym for -i</li>
+      <li>added the INCLUDE statement (from the MTS tradition), to change the
+        standard input to the file given as an argument string (the default is
+        that the input is expected from keyboard); only INPUT and MATINPUT are
+        influenced by this statement; INKEY$ and INPUT$ (which require a
+        keyboard input) continue with their standard behavior</li>
+      <li>added OPTION WARNINGS ON|OFF</li>
+      <li>added to LINEINPUT# (and LINPUT#) the ability to consider also void
+        lines in reading from files (required by Ian)</li>
+      <li>added the USING statement, that fixes a default format for all
+        subsequent prints of the same type. USING or USING OFF can be used to
+        disable this features also a PRINT USING disables the features. Use with
+        care, the format establishes the things that must be printed (if you set
+        USING "###.###" you cannot print strings until you disable USING!)</li>
+      <li>many other minor additions were applied. The manual is updated, so
+        check it for further notices.</li>
+    </ul>
+    <p><u>Solved bugs</u>: </p>
+    <ul>
+      <li> completed the recognizing of variables names, making it
+        case-insensitive, and thus accepting 'a' as 'A' identifying the same
+        variable. SUBs were already made this way (CALC and calc already
+        referred to the same sub)</li>
+      <li>Revolutionized the syntax: now in the source the statements DECLARE,
+        SUB, HANDLER, WHILE, UNTIL, IF must be followed by a blank. Also SELECT
+        and DO, if followed by something. The keywords THEN (when followed by
+        something), TO, STEP, BY, AS, OTHERWISE, IN must be written surrounded
+        by blanks. The commands FOR, GOTO, GOSUB, ELSE, USE, when not used&nbsp;
+        as statements, must also be surrounded by blanks<br>
+      </li>
+      <li>modified ONDEBUG and OFFDEBUG to be used with ON and OFF, and thus the
+        command is ON DEBUG and OFF DEBUG</li>
+      <li>solved a bug in SYSTEM that, if the user hit CTRL-C during the
+        session, when SYSTEM/BYE is typed, the interrupt error appeared without
+        need</li>
+      <li>after a comment in comp.lang.basic by Marcus Cruz, I realized that the
+        two comments @ (stop) and &amp; (suspend) are redundant. So, accepting
+        his suggestion, I chose to use @ only, both for suspend and stop (in
+        practice, 'stop' is a 'suspend' that is not terminated). This seems
+        reasonable and technically good. There shouldn't be much code around
+        with the &amp; comment, but if you've used it, change &amp; to @ and
+        that's done</li>
+      <li>solved a bug in the numeric functions MIN and MAX, that in some cases
+        didn't return the correct value. The same for VMAX and VMIN. The problem
+        was signaled by TOM</li>
+      <li>Modified and simplified the string printing, because there were too
+        much limitations that came from the DEC version (decb). These limits
+        were removed and now tbas prints full strings (up to the maximum string
+        length). Maintained the limitations to the quote mode, but in any case
+        the effects of the limits were detectable only with strings longer than
+        the screen line width limit of 72.</li>
+      <li>added to tbas the capability to work with different EOL formats (that
+        basically prevented the correct execution of algebra and of LIST
+        (indentation).</li>
+      <li>solved a bug in INPUT$ that didn't echo the typed characters, so I
+        enabled the typing according to the OPTION ECHO/NO ECHO, which is
+        enabled by default.</li>
+      <li>changed the destination directory for tbas man page to /usr/local/man
+        rather than /usr/share/man which was non-standard. Before installation,
+        type as root 'make uninstall' in the previous installation directory to
+        remove all previous instances of tbas.1 if you want a clean state</li>
+      <li>Fixed a bug in ON..GOSUB that didn't calculate exactly the OTHERWISE
+        clause address</li>
+      <li>Fixed a bug in MAT INV that sometimes conflicted with OPTION BASE 1
+        because of a wrong indexing in the last code lines</li>
+      <li>added to EXIT SUB the ability to exit from the sub writing the name of
+        the SUB rather than using the keyword SUB; the two following are
+        equivalent: EXIT SUB and EXIT myfunc</li>
+      <li>designed a more cute exiting message from the interactive environment</li>
+      <li>fixed a bug in the recognition of the user string, that in Windows
+        caused a SIGSEGV error, due to a void string generation (signaled by
+        Bruce)</li>
+      <li>solved a bug in MAT INV ... ELSE (the ELSE part) that was not working
+        as expected</li>
+      <li>increased in tbas.h some constants for the execution of the recursion,
+        to avoid (possibly) the segmentation error</li>
+      <li>solved the nth bug discovered by Ian (they must be one thousand now!):
+        at times when a tick comment was used, the program got confused by the
+        possible spaces between the last character of the statement and the tick
+        comment. Now the execution removes both the tick comment and the spaces
+        before it.</li>
+      <li>removed the ability for LEFT$ and RIGHT$ to work without arguments but
+        the first. Now the second argument is due. Also, removed the ability for
+        MID$ and SEG$ to work without the second argument, but maintained the
+        third optional (as Tom suggested, comparing the QBASIC output)</li>
+      <li>enabled error condition for LEFT$ and RIGHT$ when the second argument
+        is negative</li>
+      <li>enabled error condition for MID$ and SEG$ when the second optional
+        argument is negative or null</li>
+      <li>enabled error condition for MID$ and SEG$ when the third optional
+        argument is negative.</li>
+      <li>solved another bug discovered by Ian (no, really?): the CASE .. TO ..
+        was 'strangely' messed up</li>
+      <li>solved a bug in the color system: at the end of execution, default
+        colors weren't correctly restored</li>
+      <li>renamed EVAL to EXEC</li>
+      <li>renamed VAL to EVAL</li>
+      <li>added EVAL to execute more string arguments, separated by comma or
+        semicolon</li>
+      <li>solved a bug signaled by Bruce, that caused the algebraic parser to
+        read the current declaring variable, fact that prevented the correct
+        assignment of variables with SUB or DEF having arguments with the same
+        name of variables passed as arguments</li>
+      <li>enabled CALL to be used to call user SUBs (requested by Bruce),
+        independently of their being functions or procedures. Calling a
+        procedure is available but mainly useless (because the procedure is
+        directly callable); calling a function can be used to obtain the
+        side-effects that the function may produce, without the need to assign
+        some result value to dummy variables</li>
+      <li>now the line number of a Library SUB/DEF in the error string is not
+        referring to the total source but is local to the SUB</li>
+      <li>solved a bug signaled by Bruce, for errors in string/numeric error
+        functions ESM, ESL, ERR$ etc; actually, an error in the number parser
+        was generated in case those functions were used with an empty argument,
+        and that caused an infinite loop</li>
+      <li>solved a bug in INKEY$ that didn't reset the inner string if overtime
+        (signaled by Bruce)</li>
+      <li>solved a bug in OPEN (a bug revealed by Ian) that in case of multiple
+        (really big) file open/close processes, could generate an error (in
+        practice the highly frequent processes of open/close caused at some
+        point that the file couldn't be really opened). This was a bug I
+        couldn't spot in a million years if Ian didn't force me to look at the
+        code!</li>
+      <li>solved a bug in ERASE that didn't retain the variable order</li>
+      <li>many other minor changes were applied. The manual is updated, so check
+        it for further notices.</li>
+    </ul>
+    <br>
+    <hr>
+    <table width="100%" cellspacing="2" cellpadding="2">
+      <tbody>
+        <tr>
+          <td style="border: 1px double #808080; padding: 0.05cm">
+            <p><u>Version 1.0.alpha (build 3)</u> (January 14, 2018)</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+      <i>Infinite thanks to </i><i><b>Bruce Axtens</b></i><i>, who, for this
+        version, discovered many bugs (oh my!) and push me to add new features!.
+        He also put tbas code to the Rosetta code site. Well done! <br>
+      </i></p>
+    <p><i>Bruce, Ian and I are the tbas team!</i><br>
+      <br>
+      You can download tbas Alpha 3 sources <a href="distrib/tbas.1.0.alpha3.src.zip">here</a>.
+      <br>
+      You can download tbas Alpha 3 executable for Windows, compiled by Bruce
+      Axtens, <a href="distrib/tbas.1.0.alpha3.cygwin.bin.zip">here</a>.<br>
+      <br>
+      <em><u>changelog for version Alpha 3</u></em> </p>
+    <ul>
+      <li>solved a bug in <cite><samp><em>SUB</em></samp></cite><cite> and
+          multi-lines </cite><cite><samp>DEF </samp></cite><cite>that
+          prevented the recursion (this bug was signaled by Bruce).</cite> </li>
+      <li style="text-align: left;"><cite>solved a bug in </cite><cite><samp>DEFFN
+            </samp></cite><cite>which didn't work in case the </cite><cite><samp>DEFFN</samp></cite><cite>
+          had no variables like in </cite><cite><samp>DEFFNA=... </samp></cite><cite>Probably
+          this bug is due to later patches to the code, not restored before
+          uploading....(signaled by BA). This required the removing of error
+          200.</cite> </li>
+      <li style="text-align: left;"><cite>added to </cite><cite><samp>DEF FN </samp></cite><cite>functions
+          the possibility to accept strings and string variables as arguments;
+          this, though, doesn't change the numerical nature of </cite><cite><samp>DEFFN,</samp></cite><cite>
+          so that the </cite><cite><samp>FNX</samp></cite><cite> is always a
+          number, but in all, if strings are necessary in the body, they can now
+          be used (suggested by&nbsp;</cite><cite><cite>Bruce</cite>).</cite> </li>
+      <li style="text-align: left;"><cite>solved a bug in </cite><cite><samp>LIBRARY
+            </samp></cite><cite>that reset the </cite><cite><samp>DATA</samp></cite><cite>
+          indices during library loading (signaled by&nbsp;</cite><cite><cite>Bruce</cite>).</cite>
+      </li>
+      <li style="text-align: left;"><cite>added the </cite><cite><samp>COMMAND$
+          </samp></cite><cite>system string to return the console arguments
+          after file name (suggested by&nbsp;</cite><cite><cite>Bruce</cite>).</cite>
+      </li>
+      <li style="text-align: left;"><cite>added the statements </cite><cite><samp>COLOR</samp></cite><cite>
+          (to change the output text color and or invert), </cite><cite><samp>LOCATE</samp></cite><cite>
+          (to position the cursor anywhere in the screen) and </cite><cite><samp>CLS</samp></cite><cite>
+          (to clear the screen using monitor codes); the last is a synonym of </cite><cite><samp>CLEAR</samp></cite><cite>,
+          but </cite><cite><samp>CLEAR</samp></cite><cite> uses shell commands
+          to reset the screen and does not reset the colors, while </cite><cite><samp>CLS
+            </samp></cite><cite>uses monitor codes and resets the colors to
+          default.</cite> </li>
+      <li style="text-align: left;"><cite>added to </cite><cite><samp>MAT READ</samp></cite><cite>
+          and </cite><cite><samp>MAT INPUT</samp></cite><cite> the ability to
+          redimension matrices (suggested by BA)</cite> </li>
+      <li style="text-align: left;"><cite>increased the memory space for
+          variables and </cite><cite><samp>SUB</samp></cite><cite>s nesting.</cite>
+      </li>
+      <li style="text-align: left;"><cite>modified some error messages</cite> </li>
+      <li style="text-align: left;"><cite>Updated the make manual and the make
+          pdfmanual processes in the makefile, and updated the man page. Also
+          corrected some formatting errors in the manual.</cite> </li>
+      <li style="text-align: left;"><cite>modified makefile to make tbas
+          compilable under different systems.</cite> </li>
+    </ul>
+    <p><br>
+    </p>
+    <hr style="margin-left: 40px;">&nbsp; <br>
+    <ul>
+      <table width="100%" cellspacing="1" cellpadding="2">
+        <tbody>
+          <tr>
+            <td style="border: 1px double #808080; padding: 0.05cm" width="100%">
+              <u>Version 1.0.alpha</u> (September 22, 2017) </td>
+          </tr>
+        </tbody>
+      </table>
+    </ul>
+    <p><i><br>
+      </i></p>
+    <p style="margin-left: 40px;"><i>Infinite thanks to </i><i><b>Ian Jones</b></i><i>
+        , a friend and a great tester, who compiled and ran tbas an incredibly
+        high number of times, finding all sort of errors in the listings. Ian
+        and I are the tbas team!</i> </p>
+    <ul>
+      <p style="margin-bottom: 0cm">You can download tbas Alpha sources <a href="distrib/tbas.1.0.alpha.src.zip">here</a>.<br>
+        <br>
+      </p>
+      <hr>
+      <p style="margin-bottom: 0cm">&nbsp; <br>
+        I wait for your impressions&nbsp;and bugs. Send <a href="mailto:ing.antonio.maschio@gmail.com">me</a>
+        your suggestions, your considerations, your corrections; even send me
+        your working BASIC programs for&nbsp;<font face="monospace">tbas</font>,
+        all commented and completed with your own name and data: they will be
+        part of the next package, of course. </p>
+      <p style="margin-bottom: 0cm" align="justify">It's GPL! Enjoy!</p>
+      <p style="margin-bottom: 0cm"><br>
+      </p>
+    </ul>
+  </body>
+</html>

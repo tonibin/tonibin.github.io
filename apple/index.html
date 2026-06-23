@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
+        <title>apple</title>
+        <meta content="APL 1130 interpreter" name="description"/>
+        <meta content="Antonio" name="author"/>
+    </head>
+    <body alink="#000099" link="#000099" style="color: rgb(0, 0, 0); background-color: rgb(255, 229, 180);" vlink="#990099">
+        <div style="text-align: center;">
+            <big><big><big>apple</big></big></big>
+        </div>
+        <div style="text-align: center;">
+            <big><span style="font-weight: bold;">APL 1130 interpreter</span></big>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">
+            <a href="#Introduction">Introduction</a>
+            <br/>
+            <a href="#Documentation">Documentation</a>
+            <br/>
+            <a href="#Installation">Installation</a>
+            <br/>
+            <a href="#Download">Download apple</a>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <h4 style="text-align: justify;"><a name="Introduction"></a>Introduction</h4>
+        <div style="text-align: justify;">Welcome to <span style="font-family: monospace;">apple</span>, the APL for the 1130 machine, adopting the 1969 manual as source. I reversed here all the experience I gained in studying and using this wonderful language, which is not a programming language in the common sense, but rather a mathematical language, and this has some meaning to me. You don'w need special keyboards or combination of characters, to use <span style="font-family: monospace;">apple</span>, because only regular ASCII characters are used. <span style="font-family: monospace;">apple</span> is simple and powerful, full of features and with a full documentation. It's a complete, maybe not so easy tool, but anyway useful for learning this wonderful mathematical language.</div>
+        <ul style="text-align: justify;">
+</ul>
+        <h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
+        <div style="text-align: justify;">Available documentation (which is contained into the downloadable package and is linked here for your convenience):</div>
+        <ul style="text-align: justify;">
+            <li>The 
+                <span style="font-family: monospace;">apple</span>&nbsp;manual for the current version in 
+                <a href="doc/apple_manual.pdf">pdf</a> format.
+            </li>
+            <li>The 
+                <span style="font-family: monospace;">apple</span>&nbsp;manual for the extended features in 
+                <a href="doc/apple_extended.pdf">pdf</a> format.
+            </li>
+            <li>The 
+                <span style="font-family: monospace;">1130</span>&nbsp;scanned manual of the language in
+                <a href="doc/APL_1130-03.3.001_1130_May69.pdf">pdf</a> format.
+            </li>
+        </ul>
+        <h4 style="text-align: justify;"><a name="Installation"></a>Installation from sources</h4>
+        <div style="text-align: justify;">The <span style="font-family: monospace;">apple</span>&nbsp;executable for the Linux and Unix environments, must be compiled and installed before usage. I suggest the following very easy procedure in 4 steps (use the terminal):
+            <br>
+            <br>
+	    1) Copy the package somewhere, and unpack it; it will unpack into a directory named <span style="font-family: monospace;">apple.XXX.src</span> (where 'XXX' stands for the version string);
+            <br>
+            <br>
+	    2) Get into <span style="font-family: monospace;">apple</span> source directory, open the file <span style="font-family: monospace;">custom.h</span> and change what you think must be changed. The file has auto-explicative comments;
+            <br>
+            <br>
+            3) Now type the following (be sure to have 
+            <span style="font-family: monospace;">gcc</span> installed):
+            <br>
+            <br>
+            <span style="font-family: monospace;">$&nbsp;make</span>
+            <br style="font-family: monospace;">
+            <span style="font-family: monospace;">$&nbsp;make install </span>
+            <br style="font-family: monospace;">
+            <br>
+            The latter may require root privileges if you try to install 
+            <span style="font-family: monospace;">apple</span> into system directories, as suggested by default in the Makefile. In this case, if you have the administrative access, as a common user, type
+	    <br> 
+	    <br>
+	    <span style="font-family: monospace;">$&nbsp;sudo make install</span>
+            <br style="font-family: monospace;">
+            <br>
+	    and the program will install.
+            <br>
+            <br>
+            4) now type the following to test the correct installation:
+            <br>
+            <br>
+            <span style="font-family: monospace;">$ apple --version</span>
+            <br>
+            <br>
+	    to see the version number, or better
+	    <br>
+	    <br>
+            <span style="font-family: monospace;">$ apple --help</span>
+            <br>
+            <br>
+            to see all basic options of 
+            <span style="font-family: monospace;">apple</span> (type )HELP to get a complete list of commands, and )OFF to exit).  Here it is! <span style="font-family: monospace;">apple</span> is installed and can be run! Remember also to read the manual, to know the internal secrets of <span style="font-family: monospace;">the APL language</span>!
+        </div>
+
+        <h4 style="text-align: justify;"><a name="Download"></a>Download apple</h4>
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+			<td><span style="text-decoration: underline;">Version 1.0.alpha'</span> (quasimodo)</td>
+                </tr>
+            </tbody>
+        </table>
+	<br>
+	Download it <a href="distrib/apple_1.0.Alpha quasimodo.zip">here</a> <br>
+	<br>
+	Remember: this is an Alpha version. I expect tons of bugs! I wait for your impressions. Send 
+        <a href="mailto:ing.antonio.maschio@gmail.com">to me</a> your suggestions, your considerations, your corrections, the bugs you find, your working APL programs for&nbsp;
+        <span style="font-family: monospace;">apple</span>, hopefully fully commented and completed with your own name and date: they will be part of the next package if useful for the APL community.
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">It&#39;s GPL! Enjoy!</div>
+	<br>
+</body>
+</html>

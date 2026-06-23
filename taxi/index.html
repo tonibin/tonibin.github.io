@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
+        <title>taxi</title>
+        <meta content="ALGOL 60 interpreter" name="description"/>
+        <meta content="Antonio" name="author"/>
+    </head>
+    <body alink="#000099" link="#000099" style="color: rgb(0, 0, 0); background-color: rgb(127, 127, 216);" vlink="#990099">
+        <div style="text-align: center;">
+            <big><big><big>taxi</big></big></big>
+        </div>
+        <div style="text-align: center;">
+            <big><span style="font-weight: bold;">ALGOL 60 interpreter</span></big>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">
+            <a href="#Introduction">Introduction</a>
+            <br/>
+            <a href="#Documentation">Documentation</a>
+            <br/>
+            <a href="#Installation">Installation</a>
+            <br/>
+            <a href="#Download">Download taxi</a>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <h4 style="text-align: justify;"><a name="Introduction"></a>Introduction</h4>
+        <div style="text-align: justify;">Welcome to <span style="font-family: monospace;">taxi</span>, an interpreter of ALGOL 60. <span style="font-family: monospace;">taxi</span> is a boy-interpreter, simple but elegant, full of features and with a full documentation. Why boy? Because it does not fulfill the Knuth's requirements for a complete ALGOL system, and also because it is a very young program: maybe it will better with age. But for the rest, it's a complete and easy tool, useful for learning this wonderful language.</div>
+        <ul style="text-align: justify;">
+</ul>
+        <h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
+        <div style="text-align: justify;">Available documentation (which is contained into the downloadable package and is linked here for your convenience):</div>
+        <ul style="text-align: justify;">
+            <li>The 
+                <span style="font-family: monospace;">taxi</span>&nbsp;manual for the current version in 
+                <a href="doc/taxi_manual.pdf">pdf</a> format.
+            </li>
+        </ul>
+        <h4 style="text-align: justify;"><a name="Installation"></a>Installation from sources</h4>
+        <div style="text-align: justify;">While the Windows version executable can be downloaded directly from the link you find at the bottom of this page, the 
+            <span style="font-family: monospace;">taxi</span>&nbsp;executable for the Linux and Unix environments, must be compiled and installed before usage. I suggest the following very easy procedure in 4 steps (use the terminal):
+            <br>
+            <br>
+	    1) Copy the package somewhere, and unpack it; it will unpack into a directory named <span style="font-family: monospace;">taxi.XXX.src</span> (where 'XXX' stands for the version string);
+            <br>
+            <br>
+	    2) Get into <span style="font-family: monospace;">taxi</span> source directory, open the file <span style="font-family: monospace;">custom.h</span> and change what you think must be changed. The file has auto-explicative comments;
+            <br>
+            <br>
+            3) Now type the following (be sure to have 
+            <span style="font-family: monospace;">gcc</span> installed):
+            <br>
+            <br>
+            <span style="font-family: monospace;">$&nbsp;make</span>
+            <br style="font-family: monospace;">
+            <span style="font-family: monospace;">$&nbsp;make install </span>
+            <br style="font-family: monospace;">
+            <br>
+            The latter may require root privileges if you try to install 
+            <span style="font-family: monospace;">taxi</span> into system directories, as suggested by default in the Makefile. In this case, if you have the administrative access, as a common user, type
+	    <br> 
+	    <br>
+	    <span style="font-family: monospace;">$&nbsp;sudo make install</span>
+            <br style="font-family: monospace;">
+            <br>
+	    and the program will install.
+            <br>
+            <br>
+            4) now type the following to test the correct installation:
+            <br>
+            <br>
+            <span style="font-family: monospace;">$ taxi --version</span>
+            <br>
+            <br>
+	    to see the version number, or better
+	    <br>
+	    <br>
+            <span style="font-family: monospace;">$ taxi --help</span>
+            <br>
+            <br>
+            to see all basic options of 
+            <span style="font-family: monospace;">taxi</span>.  Here it is! <span style="font-family: monospace;">taxi</span> is installed and can be run! Remember also to read the manual, to know the internal secrets of <span style="font-family: monospace;">taxi</span>!
+        </div>
+
+        <h4 style="text-align: justify;"><a name="Download"></a>Download taxi</h4>
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+                    <td><span style="text-decoration: underline;">Version 1.0.alpha 'geographic'</span> (January 4, 2021)</td>
+                </tr>
+            </tbody>
+        </table>
+	<br>
+	Changes:
+	<br>
+	- modified the warning signalling a variable is already declared to act only if happening in the same procedure or level
+	<br>
+	- red-colored letters T,A,X and I in the welcome string.
+	<br>
+	- corrected a bug in the operators tokenization, where the central dot was bound to the dot and not to the asterisk (multiplication), as reported in the manual.
+	<br>
+	- added option -c/--cdc that interprets channel 60 as channel 0 and channel 61 as channel 1; this is necessary for programs written for the CDC system, where channels 60 and 61 were used.
+	<br>
+	- removed the check for binary files, which interfered with the Windows version. This bug was found by Bruce. 
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+	<br>
+	<br>
+            <tbody>
+                <tr>
+                    <td><span style="text-decoration: underline;">Version 1.0.alpha 'harbour'</span> (January 3, 2021)</td>
+                </tr>
+            </tbody>
+        </table>
+	<br>
+	Changes:
+	<br> - solved a bug found by Bruce Axtens, related to the label indexing. 
+	<br>
+	<br>
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+                    <td><span style="text-decoration: underline;">Version 1.0.alpha 'inshore'</span> (January 2, 2021)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+	<span style="font-style: italic;">Infinite thanks to <span style="font-weight: bold;">Ian Jones</span> , a friend and a great tester who, in the starting phase of development, compiled and ran <span style="font-family: monospace;">taxi</span> an incredibly high number of times, finding all sort of errors in the listings. And thanks also to <span style="font-weight: bold;">Henry Levkin</span>, who has shown great interest in this tool, adding a reference to <a href="http://www.algol60.org/3translators.htm">www.algol60.org</a>. And finally, last but not least, thanks to <span style="font-weight: bold;">Bruce Axtens</span>, who compiled the Windows Version. Without all this guys, this project would hardly have seen the light...</span> 
+	<br>
+	<br>
+	Note:<span style="font-style: italic;"> This version coincides with the previous first version of May 29, 2020, with the sole addition of the <span style="font-family: monospace;">PAUSE</span> command and a small revision in the manual (for the insertion of the reference of this new addition).</span>
+        <!-- DIV 728x90 DFP -->
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+	<h4 style="color:red;">Download</h4>
+        The <span style="font-family: monospace;">taxi</span> Alpha sources for the current Linux and Unix version can be downloaded 
+        <a href="distrib/taxi.1.0.Alpha.src.zip">here</a>.
+	<br>
+	The Windows executable package can be downloaded <br\>
+	<a href="distrib/taxi.1.0.Alpha.src-winexe.zip">here</a>.<br>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        If you want some previous versions (while I cannot understand why, since they are surely bugged!) write me, and I'll send them to you.
+	<br>
+	Remember: this is an Alpha version. I expect tons of bugs! I wait for your impressions. Send 
+        <a href="mailto:ing.antonio.maschio@gmail.com">to me</a> your suggestions, your considerations, your corrections, the bugs you find, your working ALGOL 60 programs for&nbsp;
+        <span style="font-family: monospace;">taxi</span>, hopefully fully commented and completed with your own name and date: they will be part of the next package if useful for the Algol community.
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">It&#39;s GPL! Enjoy!</div>
+	<br>
+</body>
+</html>

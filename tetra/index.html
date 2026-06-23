@@ -1,0 +1,227 @@
+<html lang="en-us">
+    <head>
+        <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
+        <title>tetra</title>
+        <meta content="Forth-79 interpreter" name="description"/>
+        <meta content="Antonio" name="author"/>
+    </head>
+    <body alink="#000099" link="#000099" style="color: rgb(32, 32!9!), 0); background-color: rgb(240, 128, 128);" vlink="#990099">
+        <div style="text-align: center;">
+            <big><big><big>tetra</big></big></big>
+        </div>
+        <div style="text-align: center;">
+            <big><span style="font-weight: bold;">Forth-79 interpreter</span></big>
+        </div>
+	<div style="text-align: center;"><img src="tetra_fish.png" alt="tetra fish" style="width: 250px; height: 125px;"><br>
+	</div>
+	
+        <div style="text-align: center;"> </div>
+        <div style="text-align: justify;"> </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">
+            <a href="#Introduction">Introduction</a>
+            <br/>
+            <a href="#Documentation">Documentation</a>
+            <br/>
+            <a href="#Installation">Installation</a>
+            <br/>
+            <a href="#Download">Download tetra</a>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;"> </div>
+        <h4 style="text-align: justify;"><a name="Introduction"></a>Introduction</h4>
+        <div style="text-align: justify;">Welcome to tetra, an interpreter for Forth-79. tetra (formerly known as qartus) is a complete console environment adhering to the Forth-79 Standard, with some additions, two editors (a line-editor and a screen-editor), a complete library and documentation.
+	<br>
+	<br>
+(from the manual)<br><span style="font-style: italic;"> "Why Forth? Perhaps because I enjoy programming, I find Forth appealing, and I love creating something by assembling smaller component. But principally because Forth is the most fascinating imperative language ever created, in my opinion."
+<br>
+<br>
+"Why Forth-79? I chose Forth-79 because it represents the first standardization of the Forth language, offering simplicity and historical significance, and it was the version I initially studied."
+<br>
+<br>
+"I don't belong to any Forth circle, no Forth group, no Forth organization; no university, no school, no structure. And I'm not a professional programmer, so please don't tell me 'you should've done this that way or that this way!' because I know that my programming style is pretty naive. I want to make my algorithms work: speeding them up and making them beautiful are tasks that go beyond my interests."
+</span>
+
+	</div>
+        <ul style="text-align: justify;">
+</ul>
+        <h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
+        <div style="text-align: justify;">Available documentation (which is contained into the downloadable package and is linked here for your convenience):</div>
+        <ul style="text-align: justify;">
+            <li>The 
+                tetra manual for current version in 
+                <a href="doc/tetra_manual.pdf">pdf</a> format.
+            </li>
+        </ul>
+        <h4 style="text-align: justify;"><a name="Installation"></a>Installation</h4>
+        <div style="text-align: justify;">The 
+            tetra executable, before use, must be compiled, installed and configured. I suggest the following very easy procedure in few steps (use the terminal):
+            <br>
+            <br>
+	    1) Copy the package somewhere, and unpack it; it will unpack into a directory named, say, tetra.XXX.src (where 'XXX' is a string specifying the program version);
+	    <br><br>
+	    2) Get into tetra source directory, open the file custom.h and change what you think must be changed. The file has auto-explicative comments;
+            <br>
+            <br>
+            3) Then type the following (be sure to have 
+            gcc installed):
+            <br>
+            $ make
+	    <br>
+            $ make install
+            <br><br>
+            The installation may require root privileges if you try to put 
+            tetra into system directories, as suggested by default in the Makefile. If you have administrative access, but you type from your own login, type
+	    <br><br>
+            $ sudo make install
+	    <br><br>
+	    4) Then you can type the following to set up the environment
+	    <br>
+            tetra --config
+	    <br><br>
+	    The --config installation (not mandatory) creates the hidden folder .tetra/ in your $HOME directory and the subfolder .tetra/blocks/; then all installation block files are copied therein. Installation blocks are named with the reserved number range 20000-29999; all other numbers are at your disposition. If you want to alter reserved number range blocks, remember to rename them with another number, because one next version can overwrite all installation blocks.
+	    <br>
+	    <br>
+            5) now type the following
+            <br>
+            tetra --version
+            <br>
+            <br>
+	    to see the version number, or better
+	    <br>
+	    <br>
+            tetra --help
+            <br>
+            <br>
+            to see all basic options of 
+            tetra.  Here it is! tetra is installed and can be run! Remember also to read the manual, to know the internal secrets of tetra!
+	</div><br>
+	<h4 style="text-align: justify;"><a name="Download"></a>Download</h4>
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+			<td><span style="text-decoration: underline;">Version 1.0.beta</span> (<> <>, 2025)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+<span style="font-style: italic;">What's new:</span>
+<ul>
+	<li>the name of the compiler is now tetra, because there already was a Quartus Forth compiler somewhere in the world... The name tetra was suggested by Bruce, and I like it.</li>
+	<li>many corrections were applied, both in the compiled words and in the library words. Some bugs were solved, and some new words added (mainly SLITERAL and ?DO)</li>
+	<li>some options were added, above all --pad-distance and --evaluate, and also --strict</li>
+	<li>the library has been enhanced with many more tools, and now it has more that 350 words; many new additions from the ANSI world and the Apple Forth-79;</li>
+	<li>see also the following CHANGELOG for detailed information about the changing from version Alpha to version Beta.
+		<br><br>
+</ul>
+...from 2020 to 2026, it's been a long hiatus actually... <br><br>
+<b>About tetra</b><br>
+<ul>
+	<li>improved the manual with additions and examples; new paragraphs and new topics about Forth were added; several nuisances and imprecisions were corrected;</li>
+	<li>corrected and updated the man page: there were too many errors in it!</li>
+	<li>corrected the makefile, that didn't include the pdf manual! What a shame! Besides, the make command didn't work as expected.</li>
+	<li>solved a bug for the usage of readline, that didn't manage well words beginning with the symbol '(', '\' and others that didn't work well; the change was made with the help of Chet Ramey, the current readline maintainer; </li>
+	<li>in typing commands, readline history now is updated only for non-repeating commands</li>
+	<li>added options --pad-distance=<n> and --evaluate="<str>"</li>
+	<li>added option -s/--strict and the variable STRICT-STATE; the strict state changes the functioning of WORD, the dot-quotes, the (..) comments and FORGET, to fully adhere to the Forth-79 Standard.</li>
+	<li>removed options -n, -r and -s (redundant) and added -S for statistics</li>
+	<li>added the colon-sys system, because the exploiting figure : foo [ : bar ; ] ; caused the system to be unresponsive.</li>
+	<li>solved a bug in DOES&gt; that prevented the copying of the DOES&gt; part in some cases, due to a wrong addressing of the variable currPC, which has now been removed and replaced with _PC</li>
+	<li>solved a bug in the (double) number input routine that didn't calculate correctly DPL in all cases</li>
+	<li>reviewed the vocabularies compilation, removed the VOC_MARK and voc_chain[]; now the chaining is done directly into the dictionary words; with this new protocol, there are no limits in the vocabularies creation, and this responds more strictly to the Forth-79 protocol.</li>
+	<li>added some more Forth files with interesting programming solutions.</li>
+	<li>compiled vocabularies with [COMPILE] use now the address link.</li>
+	<li>added controls to BASE, which cannot be altered beyond the 2..36 interval, or the system becomes unstable...</li>
+	<li>CREATE, CONSTANT, VARIABLE, 2CONSTANT, 2VARIABLE, FORGET and others now have an explicit run-time counterpart that is shown in compiled form</li>
+</ul>
+<b>About FORTH-79</b>
+<ul>
+	<li>solved a bug in CONSTANT and 2CONSTANT that in compilation compiled the name of the constant rather than its value; this is not the case of system constants, that remain compiled as names (this happens also in GForth)</li>
+	<li>solved a bug in ?TERMINAL because of a change - technically the function getchar() - in the C library, probably due to a change in the return values; so I had to use read(), that works as expected)</li>
+	<li>solved two bugs in CONVERT; the first: the missing generation of error in case the string is not valid; the second: the wrong return value of the address (oh my!)</li>
+	<li>solved a bug in &lt;# that didn't erase the buffer, causing wrong intepretation in successive calls (the error was detected in building the Forth-79 tester)</li>
+	<li>solved a bug in M*/ that didn't consider the case of division by zero</li>
+	<li>solved a bug in INCLUDE that in case of error exited tetra immediately without advice</li>
+	<li>solved bugs in U* and U/MOD that failed to return the correct values with big numbers (the error was detected in building the Forth-79 tester)</li>
+	<li>added the word INCLUDED; also, both for INCLUDE and INCLUDED, added the reset of words to the state prior to the execution of the command in case an error is met in the source</li>
+	<li>modified the VOCABULARY, CONTEXT and CURRENT words, and redesigned the vocabularies system; now they are more conforming the Standard (to obtain the value of CONTEXT and CURRENT not two @ are required, as it was in Forth-79)</li>
+	<li>removed END and ENDIF and added them to the library</li>
+	<li>removed (SLITERAL) as primitive, and added SLITERAL</li>
+	<li>removed (SOUND) as super-immediate word (it is a normal builtin word SOUND)</li>
+	<li>renamed (BLOCK-WRITE) to WRITE-BLOCK, (BLOCK-READ) to READ-BLOCK and solve some bugs in them; added ERASE-BLOCK</li>
+	<li>completed the control flow words adding ?DO</li>
+	<li>corrected the output for INFO and ORDER</li>
+	<li>modified SHIFT to use unsigned values (the signed version is ASHIFT actually)</li>
+	<li>integrated the words SP! and RP! (from the Starting Forth book)</li>
+	<li>integrated the word ABORT" from the Forth-79 Reserved Word Set and Forth-83; "Starting Forth" gives this for granted, so...</li>
+	<li>now COMPILE compiles the Compilation Address of the word, not the Link Address, as prescribed by the Standard.</li>
+	<li>added the run-time behaviour for FORGET - as (FORGET) - to make it compilable (see for instance the word REMEMBER in the library)</li>
+	<li>added the word LSEE to inspect words on the library file; also enable SEARCHLIB to return the total number of words</li>
+	<li>added the word SYSTEM in the dictionary (it copies the SH super-immediate word); removed sys from the super-immediate word list, but left MON; </li>
+	<li>improved the fig-forth compatibility for FORGET and SIGN</li>
+	<li>improved the compilation process of the semicolon: a) added an error if used in interpret state; b) the "COMPILE ;" phrase succeeds.</li>
+	<li>added WARM to do a WARM start (reinitalize the dictionary but preserves the memory), while COLD resets completely the system; also, disables also debug/tracing when invoked from a debug session</li>
+	<li>solved some bugs for SEE (the curly brackets were not present and it didn't treat correctly the FORTH and EDITOR vocabularies output)</li>
+	<li>updated the word SEE to behave as in the manual (something that I had omitted in the previous version)</li>
+	<li>improved the QUIT phase; now it propagates until end.</li>
+	<li>improved TYPE; now it types any string length, if required to (for instance blocks).</li>
+	<li>added the word CONSUMES</li>
+	<li>removed ON and OFF as constant and readded them as commands to set variables to TRUE and FALSE respectively;</li>
+	<li>removed the command DEBUG and renamed the variable DEBUG-STATE as DEBUG, that can be enabled with DEBUG ON and disabled with DEBUG OFF to respectively enable or disable the debug</li>
+	<li>removed the command PORT, because ON PORT and OFF PORT cannot be used anymore. Added the commands SETPORT and UNSETPORT to be their equivalent</li>
+	<li>added the Test Suite for the Forth-79!</li>
+	<li>added the float numbers to Forth-79!</li>
+</ul>
+
+<b>About the library</b>
+<ul>
+	<li>renamed it tlibrary</li>
+	<li>- completed UNLOOP that was left unfinished in the Alpha version</li>
+	<li>- added !BITS and @BITS</li>
+	<li>- added [']</li>
+	<li>- added 2/ and D2/ and 2* and D2* in shifting mode (all these version pass the ANSI test suite!)</li>
+	<li>- added the word ASHIFT (alphabetically shifting for signed numbers) from the Reserved Word Set of Forth-79;</li>
+	<li>- removed SLITERAL (now as builtin).</li>
+	<li>- recalibtated ABORT" to use SLITERAL</li>
+	<li>- changed SP to return directly the address and improved SP@ (and RP@)</li>
+	<li>- improved CLEARSTACK, that now erases also the data stack memory</li>
+	<li>- added REMEMBER</li>
+	<li>- renamed MARKER as MARK-UP, and added the word MARKER as synonym of REMEMBER</li>
+	<li>- added (from RWS) the words MASK &gt;MOVE&lt; -' .$ LOADS USER</li>
+	<li>- updated the ANSI words DEFER and IS (that worked bad) and also VALUE TO </li>
+	<li>- added PITIMES</li>
+	<li>- added SM/REM FM/MOD (these version pass the ANSI test suite!)</li>
+	<li>- corrected DIGIT that left a spurious value on the stack in some cases</li>
+	<li>- corrected the [IF]/[ELSE]/[THEN] and IFTRUE/OTHERWISE/IFEND clauses that worked the opposite way</li>
+	<li>- changed +INDEX to work with lower/upper value</li>
+	<li>- added SPLIT and COMBINE</li>
+	<li>- added the BEGIN-STRUCTURE, END-STRUCTURE, and family words from ANSI; added also examples to learn how to use them;</li>
+	<li>- reconfigured S" and C" to use SLITERAL</li>
+	<li>- improved the STYLE word</li>
+	<li>- improved the CH and CV words of the Apple Forth</li>
+	<li>- added many other Apple Forth words for strings and monitor treatment</li>
+	<li>- added many other Forth words...</li>
+</ul>
+	<!-- DIV 728x90 DFP -->
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+                    <td><span style="text-decoration: underline;">Version 1.0.alpha</span> (January 02, 2020) - as qartus </td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+	<span style="font-style: italic;">I here thank <span style="font-weight: bold;">Ian Jones</span>, the man who shared with me this creation. He discovered many bugs, suggested many things, cleared many concepts, tested everything, showing a great patience throughout the whole process and supporting my discouragements. He discovered a huge number of bugs, and helped me to interpret some features of the Forth-79 Standard. He's a friend, even if we've never met: all of our work was shared through emails, messages and Signal, but our friendship is anyway strong. Thank you, Ian. And I also thank <span style="font-weight: bold;">Bruce Axtens</span>, who compiled the Window version. Without their help, this project would be worse.</span> 
+	<br>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+	<br>
+        You can download tetra sources of the Beta version
+        <a href="distrib/tetra.1.0-Beta.src.zip">here</a>.
+        I wait for your impressions and bugs. Send 
+        <a href="mailto:ing.antonio.maschio@gmail.com">me</a> your suggestions, your considerations, your corrections; even send me your working Forth-79 programs for <span style="font-family: monospace;">tetra</span>, all commented and completed with your own name and your data: these programs will be part of the next package, if you please.
+	<br>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">It&#39;s GPL! Enjoy!</div>
+	<br>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
+        <title>soft</title>
+        <meta content="Snobol4 interpreter" name="description"/>
+        <meta content="Antonio" name="author"/>
+    </head>
+    <body alink="#000099" link="#000099" style="color: rgb(0, 0, 0); background-color: rgb(64, 164, 64);" vlink="#990099">
+        <div style="text-align: center;">
+            <big><big><big>soft</big></big></big>
+        </div>
+        <div style="text-align: center;">
+            <big><span style="font-weight: bold;">Snobol4 interpreter</span></big>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">
+            <a href="#Introduction">Introduction</a>
+            <br/>
+            <a href="#Documentation">Documentation</a>
+            <br/>
+            <a href="#Installation">Installation</a>
+            <br/>
+            <a href="#Download">Download soft</a>
+        </div>
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <h4 style="text-align: justify;"><a name="Introduction"></a>Introduction</h4>
+        <div style="text-align: justify;">Welcome to <span style="font-family: monospace;">soft</span>, the Berkeley Snobol4 interpreter. <span style="font-family: monospace;">soft</span> is simple but elegant, full of features and with a full documentation. It's a complete and easy tool, useful for learning this wonderful language for the humanities. It includes the full Berkely Snobol4 system, with some update from the Bell Snobol4, trying to be the Unix best bridge between the two systems.
+	</div>
+        <ul style="text-align: justify;">
+</ul>
+        <h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
+        <div style="text-align: justify;">Available documentation (which is contained into the downloadable package and is linked here for your convenience):</div>
+        <ul style="text-align: justify;">
+            <li>The 
+                <span style="font-family: monospace;">soft</span>&nbsp;manual for the current version in 
+                <a href="doc/soft_manual.pdf">pdf</a> format.
+            </li>
+        </ul>
+        <h4 style="text-align: justify;"><a name="Installation"></a>Installation from sources</h4>
+        <div style="text-align: justify;">While the Windows version executable can be downloaded directly from the link you find at the bottom of this page, the 
+            <span style="font-family: monospace;">soft</span>&nbsp;executable for the Linux and Unix environments, must be compiled and installed before usage. I suggest the following very easy procedure in 4 steps (use the terminal):
+            <br>
+            <br>
+	    1) Copy the package somewhere, and unpack it; it will unpack into a directory named <span style="font-family: monospace;">soft.XXX.src</span> (where 'XXX' stands for the version string);
+            <br>
+            <br>
+	    2) Get into <span style="font-family: monospace;">soft</span> source directory, open the file <span style="font-family: monospace;">custom.h</span> and change what you think must be changed. The file has auto-explicative comments;
+            <br>
+            <br>
+            3) Now type the following (be sure to have 
+            <span style="font-family: monospace;">gcc</span> installed):
+            <br>
+            <br>
+            <span style="font-family: monospace;">$&nbsp;make</span>
+            <br style="font-family: monospace;">
+            <span style="font-family: monospace;">$&nbsp;make install </span>
+            <br style="font-family: monospace;">
+            <br>
+            The latter may require root privileges if you try to install 
+            <span style="font-family: monospace;">soft</span> into system directories, as suggested by default in the Makefile. In this case, if you have the administrative access, as a common user, type
+	    <br> 
+	    <br>
+	    <span style="font-family: monospace;">$&nbsp;sudo make install</span>
+            <br style="font-family: monospace;">
+            <br>
+	    and the program will install.
+            <br>
+            <br>
+            4) now type the following to test the correct installation:
+            <br>
+            <br>
+            <span style="font-family: monospace;">$ soft --version</span>
+            <br>
+            <br>
+	    to see the version number, or better
+	    <br>
+	    <br>
+            <span style="font-family: monospace;">$ soft --help</span>
+            <br>
+            <br>
+            to see all basic options of 
+            <span style="font-family: monospace;">soft</span>.  Here it is! <span style="font-family: monospace;">soft</span> is installed and can be run! Remember also to read the manual, to know the internal secrets of <span style="font-family: monospace;">soft</span>!
+        </div>
+
+        <h4 style="text-align: justify;"><a name="Download"></a>Download soft</h4>
+        <table border="1" cellpadding="2" cellspacing="2" width="100%">
+            <tbody>
+                <tr>
+			<td><span style="text-decoration: underline;"></span> <a href="distrib/soft_Alpha.src.zip">Version 1.0.alpha</a>
+                </tr>
+            </tbody>
+        </table>
+	<br>
+	Remember: this is an Alpha version. I expect tons of bugs! I wait for your impressions. Send 
+        <a href="mailto:ing.antonio.maschio@gmail.com">to me</a> your suggestions, your considerations, your corrections, the bugs you find, your working Snobol4 programs for&nbsp;
+        <span style="font-family: monospace;">soft</span>, hopefully fully commented and completed with your own name and date: they will be part of the next package if useful for the Snobol4 community.
+        <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;"/>
+        <div style="text-align: justify;">It&#39;s GPL! Enjoy!</div>
+	<br>
+</body>
+</html>
