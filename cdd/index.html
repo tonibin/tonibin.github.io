@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en-us"><head>
+
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  
+
+
+  <title>cdd</title><meta name="description" content="compact disc database maintainer in bash">
+
+  <meta content="Antonio" name="author"></head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(204, 204, 255);" link="#000099" alink="#000099" vlink="#990099">
+
+<div style="text-align: center;"><big><big><big>cdd</big></big></big><br>
+
+</div>
+
+<big><big><big>
+</big><small><span style="font-style: italic;"></span></small></big></big>
+<hr size="2" width="100%">For any subject write to
+<a href="mailto:tbin@libero.it">tbin@libero.it<br>
+
+</a><br>
+
+<a href="#Intro:_what_is_cdd">
+Intro: what is <span style="font-family: monospace;">cdd</span>?</a><br>
+
+<a href="#add2cdd_and_custom.data"><span style="font-family: monospace;">custom.data</span>, <span style="font-family: monospace;">add2cdd</span> and <span style="font-family: monospace;">peryear</span><span style="font-family: monospace;"></span></a><br>
+
+<a href="#Download">Download</a><br>
+
+<table style="text-align: left; font-style: italic; width: 359px; height: 128px;" border="0" cellpadding="2" cellspacing="2">
+
+  <tbody>
+
+    <tr>
+
+      <td>Well, I don't ask money for the programs I create.
+But if you want to sustain my work, feel free to donate any amount you
+can,
+using the PayPal button down below. In any case, whatever is your
+decision, go on surfing.<br>
+
+      </td>
+
+    </tr>
+
+  </tbody>
+</table>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+  <input name="cmd" value="_s-xclick" type="hidden"><input src="https://www.paypal.com/it_IT/i/btn/x-click-but04.gif" name="submit" alt="Effettua i tuoi pagamenti con PayPal. un sistema rapido, gratuito e sicuro." type="image" border="0">
+  <img alt="" src="https://www.paypal.com/it_IT/i/scr/pixel.gif" border="0" height="1" width="1"><input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+</form>
+
+<hr style="width: 100%; height: 2px;">
+<h4><big><span style="font-weight: bold;"><a name="Intro:_what_is_cdd"></a>Intro: what
+is <span style="font-family: monospace;">cdd</span>?</span></big></h4>
+
+<span style="font-weight: bold;"></span><span style="font-family: monospace;">cdd</span>
+is a UNIX tool, written in bash, that operates on a text file cd
+database for extracting information and data and reporting all in a
+pretty format. The program has various options to control its behavior,
+and may be customizable to some extent.<br>
+
+The package contains the following files:<br>
+
+<ul>
+
+  <li><span style="font-family: monospace;">cdd</span>,
+the main script</li>
+
+  <li><span style="font-family: monospace;">add2cdd</span>,
+a <span style="font-family: monospace;">cdd</span>
+utility</li>
+
+  <li><span style="font-family: monospace;">custom.data</span>,
+contains some customizable data</li>
+
+  <li><span style="font-family: monospace;">peryear</span>,
+a bash tool for extracting information ordered by years.</li>
+
+  <li><span style="font-family: monospace;">user manual.txt</span>,
+a short reference manual</li><li><span style="font-family: monospace;">reformat</span>, a bash tool to update&nbsp;databases made with former versions&nbsp;of cdd</li>
+
+</ul>
+
+A brief description. The database is formed by&nbsp;text lines, each containing six&nbsp;fields:<br>
+
+<ul>
+
+  <li>author</li>
+
+  <li>title</li>
+
+  <li>recording year</li>
+
+  <li>issue year (the actual date of the cd printing)</li><li>publisher</li>
+
+  <li>notes</li>
+
+</ul>
+
+All fields are separated by a special character (defined in
+<span style="font-family: monospace;">custom.data</span>): by default it's the vertical bar |. Here's an example:<br>
+
+<pre>led zeppelin|bbc sessions|v.v.|1997|tracks from studio and live|atlantic|<br></pre>
+
+The format is quite unreadable, but it's pure text, and may be altered
+by any editor.<br>
+
+<br>
+
+The simplest usage is <span style="font-family: monospace;">cdd
+&lt;pattern&gt;</span> (look out: all files must reside
+in the same directory) as in the following example:<br>
+
+<pre>$ cdd led</pre>
+
+The output will be<br>
+
+<span style="font-family: monospace;"><br>
+
+led zeppelin&nbsp;&nbsp;&nbsp; bbc
+sessions&nbsp;&nbsp;&nbsp;
+v.v.&nbsp;&nbsp;&nbsp; 1997&nbsp;&nbsp;&nbsp;
+from studio and live<br>
+
+</span><br>
+
+(the database is all in lower letters, but you can use patterns in
+any character, since <span style="font-family: monospace;">cdd</span>
+in case-insensitive; also, the aligned format does not report the publisher's name). <span style="font-family: monospace;">cdd</span>
+has searched through the database and has reported all the lines containing
+the pattern "led" (it could have been in the title or in the notes, for
+example). Another useful usage is:<br>
+
+<pre>$ cdd -a</pre>
+
+this command (-a option, no patterns) simply prints out the whole
+database in the default view ('a' stands for <span style="font-style: italic;">all</span>). Here's what
+happens here:<br>
+
+<span style="font-family: monospace;"><br>bruce,
+jack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; songs for a
+tailor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1969
+1997&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>dandy
+wharols&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the dandy
+wharols&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1996 1996&nbsp;&nbsp;&nbsp; <br>led
+zeppelin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bbc
+sessions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+v.v. 1997&nbsp; from studio &amp; li<br>pat metheny
+group&nbsp;&nbsp;&nbsp; letter from
+home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1989 1989&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+......<br>
+
+......<br>
+
+</span><span style="font-family: monospace;"></span><br style="font-family: monospace;">
+The default format is a fixed-size output;&nbsp;there are other two
+views: a plain format in which&nbsp;the separator (|) is&nbsp;changed
+into a TAB and a framed output. Now that you've understood the
+principles, here's the output of the -h options (h for <span style="font-style: italic;">help</span>):<br>
+
+<br>
+
+<span style="font-family: monospace;">$ cdd -h<br>Usage: cdd [OPTIONS] pattern [+|- pattern2]<br>cdd prints all lines matching pattern (which may contain spaces). Options<br>([] indicates facultative arguments, while &lt;&gt; indicates mandatory arguments):<br>&nbsp; -a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print all database<br>&nbsp; --add [db]&nbsp;&nbsp; call 'add2cdd [db]' for adding records to the [db] database<br>&nbsp; -A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; align output in fixed-size columns (may trim fields)<br>&nbsp; -c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; report total number of database records and exit<br>&nbsp; -C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add number of found records to report <br>&nbsp; -d &lt;pat&gt;&nbsp;&nbsp;&nbsp;&nbsp; start deletion procedure over records matching pattern &lt;pat&gt;<br>&nbsp; -f &lt;file&gt;&nbsp;&nbsp;&nbsp; extract info from &lt;file&gt; rather than from cd.db<br>&nbsp; -F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; formatted output (may end in a long listing)<br>&nbsp; -h --help&nbsp;&nbsp;&nbsp; print this help and exit<br>&nbsp; -l n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list last n added records from log file (10 if n is not valid)<br>&nbsp; -L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list entire log file<br>&nbsp; -m &lt;pat&gt;&nbsp;&nbsp;&nbsp;&nbsp; start modifying procedure over records matching pattern &lt;pat&gt;<br>&nbsp;
+-n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print
+record number for each output line (unformatted outputs)<br>&nbsp; -N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print output in plain format (may give uneasy listing)<br>&nbsp; -o &lt;aryipn&gt;&nbsp; output selected field only, sorting and unifying identical lines<br>&nbsp; -r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reverse sorting (see -s)<br>&nbsp; -s &lt;aryipn&gt;&nbsp; sort output according to selected field as primary key<br>&nbsp; -S &lt;aryipn&gt;&nbsp; sort output according to selected field as secondary key<br>&nbsp; -t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; export a textual database in aligned format<br>&nbsp; -u --usage&nbsp;&nbsp; print a fast usage help and exit<br>&nbsp; -U&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print output in upper case (may slower listing)<br>&nbsp; -v --version print version and exit<br>&nbsp; -x &lt;aryipn&gt;&nbsp; limit search to selected field<br>&nbsp;
+-y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print a
+note about (my personal) issue years rules and exit<br>&nbsp; <br>Notes:<br>1. -s, -S, -x, -o options must be followed by a selector char for field:<br>&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp; artist's name,<br>&nbsp;&nbsp;&nbsp;&nbsp; r&nbsp;&nbsp; record title,<br>&nbsp;&nbsp;&nbsp;&nbsp; y&nbsp;&nbsp; original record's issue year,<br>&nbsp;&nbsp;&nbsp;&nbsp; i&nbsp;&nbsp; CD manufacture year, if found (type cdd -y for info),<br>&nbsp;&nbsp;&nbsp;&nbsp; p&nbsp;&nbsp; publisher's name<br>&nbsp;&nbsp;&nbsp;&nbsp; n&nbsp;&nbsp; notes about the recordings (if any);<br>&nbsp;&nbsp; e.g.; -sy -Sp -xa -or<br>2. if not specified, the default selector for primary sorting is the artist's <br>&nbsp;&nbsp; name (a), the default selector for secondary sorting is the original <br>&nbsp;&nbsp; record's issue year (y);<br>3. if pattern is followed by "+ pattern2" or "- pattern2", perform a second <br>&nbsp;&nbsp; search inside last result, matching only lines that include pattern2 if +<br>&nbsp;&nbsp; was used, and excluding lines that include pattern2 with if - was used; -x <br>&nbsp;&nbsp; option has effect only on the first search;<br>4. deletion procedure started by option -d &lt;pat&gt; and modifying procedure <br>&nbsp;&nbsp; started by option -m &lt;pat&gt; do not use pattern2, and must be used as the only <br>&nbsp;&nbsp; option given to cdd;<br>5. -o selected output has precedence over -A aligned or -F framed modes;<br>6. if set together, the last among -A, -F and -N determines the output format;<br>7. if no pattern is given, cdd will silently quit;<br>8. the publisher's name appears only within formatted and plain modes;<br>9. when using --add [db] option, it must be the only option given to cdd.<br></span><br>
+
+Now you can understand how powerful it is. For example, here's the same&nbsp;output with the -n and -N option (n for <span style="font-style: italic;">numbered</span> and N for <span style="font-style: italic;">Neutral</span>):<br>
+
+<br>
+
+<span style="font-family: monospace;">$ cdd -a -n -N<br>
+
+<br style="font-family: monospace;">
+
+</span><span style="font-family: monospace;">1 &nbsp;
+&nbsp;&nbsp;&nbsp; bruce, jack&nbsp;&nbsp;&nbsp;&nbsp; songs for a
+tailor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1969&nbsp;&nbsp;&nbsp;
+1997&nbsp;&nbsp;&nbsp;&nbsp;
+<br>2 &nbsp; &nbsp;&nbsp;&nbsp; dandy wharols&nbsp;&nbsp; the dandy
+wharols&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1996&nbsp;&nbsp;&nbsp; 1996<br>3
+&nbsp; &nbsp;&nbsp;&nbsp; led zeppelin&nbsp;&nbsp;&nbsp; bbc
+sessions&nbsp;&nbsp;&nbsp; v.v.&nbsp;&nbsp;&nbsp;
+1997&nbsp;&nbsp;&nbsp; from studio &amp; live&nbsp;&nbsp;&nbsp; atlantic<br>4
+&nbsp; &nbsp;&nbsp;&nbsp; pat metheny
+group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; letter from
+home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1989&nbsp;&nbsp;&nbsp;
+1989<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+
+</span><span style="font-family: monospace;"></span><br>
+
+or an output with the -F and -C options (F for <span style="font-style: italic;">framed</span>&nbsp;and&nbsp;C for <span style="font-style: italic;">count</span>)<br>
+
+<br>
+
+<span style="font-family: monospace;">$ cdd&nbsp;-F -C from</span><br style="font-family: monospace;">
+
+<span style="font-family: monospace;"><br>------------------------------------------------------------------------------<br>Artist&nbsp;&nbsp;&nbsp; : led zeppelin<br>Album&nbsp;&nbsp;&nbsp;&nbsp; : bbc sessions<br>Issued in : v.v.&nbsp;&nbsp;&nbsp;&nbsp; CD date:&nbsp; 1997&nbsp;&nbsp;&nbsp;&nbsp; Publisher:&nbsp; atlantic<br>Notes&nbsp;&nbsp;&nbsp;&nbsp; : from studio &amp; live<br>------------------------------------------------------------------------------<br>
+
+<br>Artist&nbsp;&nbsp;&nbsp; : pat metheny group<br>Album&nbsp;&nbsp;&nbsp;&nbsp; : letter from home<br>Issued in : 1989&nbsp;&nbsp;&nbsp;&nbsp; CD date:&nbsp; 1989&nbsp;&nbsp;&nbsp;&nbsp; Publisher: <br>Notes&nbsp;&nbsp;&nbsp;&nbsp; :<br>------------------------------------------------------------------------------<br>2 records found.<br>
+
+<br>
+
+</span><span style="font-family: monospace;"></span>Explore&nbsp;other
+options on your own (for instance, -o controls which field should
+be printed, and -x limits the search to the specified field).<br>
+
+<br>
+
+<hr style="width: 100%; height: 2px;"><br>
+As a final note, here I explain the symbols I use (appended to the
+issue/recording years) to define their meaning (-y option):<br><br>
+
+<span style="font-family: monospace;">$ cdd -y</span><br style="font-family: monospace;">
+
+<span style="font-family: monospace;"><br>THE SPECIAL MARKERS AND THE SYMBOLS OF THE DATABASE<br>&nbsp;&nbsp; Usually, a CD date may be the same of the CD first issue (which means the <br>record is rather recent) or be different if it's a reprint, maybe from an LP.<br>If the reprint track listing is the same of the original, having some more <br>bonus tracks, or being a remastering of the original tapes, nothing remarkable <br>happens, and the two dates are reported as they are.<br>&nbsp;&nbsp; If some change arises (a track left off because it doesn't fit into the CD, <br>or the record is a re-recording, or a bootleg version with a different tracks<br>order or anyhing else), any character may be put after the issue year, e.g. <br>2007N. add2cdd performs this operation automatically, inserting a lower 'x'.<br>&nbsp;&nbsp; When cdd finds this extra character(s), an asterisk (*) is printed after the <br>issue year, highlighting the 'irregular' discs.<br><br>&nbsp;&nbsp; Other conventions I use are:<br>&nbsp;&nbsp;&nbsp;&nbsp; v.v. means 'various years' - the record is typically a collection;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; it appears on the CD date meaning songs have been recorded<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in a range of (unspecified) years;<br>&nbsp;&nbsp;&nbsp;&nbsp; ^^^^ means 'unknown data' (generally unavailable); it may appear in any <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; field (excluding the 'Author' one, of course). It also serves as a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memo placeholder for subsequent insertions;<br>&nbsp;&nbsp;&nbsp;&nbsp; ---- means that no issue year has been found onto the cd; this symbol<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is put automatically by add2cdd when you leave 'CD date' field<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; empty (hitting Return on the 'CD date' empty input line).<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp; You're free to use your own coding, of course.<br>&nbsp;&nbsp; This is only my point of view.<br></span><br>
+
+Of course, your database may be based on different principles..<br>
+
+<h4><big><span style="font-family: monospace;"><a name="add2cdd_and_custom.data"></a>custom.data</span>,&nbsp;<span style="font-family: monospace;">add2cdd</span>, <span style="font-family: monospace;">peryear </span>and<span style="font-family: monospace;">&nbsp;reformat</span><span style="font-family: monospace;"></span></big></h4>
+
+<span style="font-family: monospace;">custom.data </span>is
+a shell
+script (not an executable) that contains some
+customizable elements: the name of the database (its whole path, in
+effect), the
+separator used to limit the record fields, the main view format, the
+log file name and so forth. You can change values&nbsp;as you
+like, respecting the values format; the only advice I can give you is that the separator I chose it
+the least probable to occur in an artist name, in a record title or in
+the speech used to write a note about the record, while other classic
+separators like : or ; may occur into a title (for instance, <span style="font-style: italic;">axis: bold
+as love</span>, by Jimi Hendrix).<br>
+
+<br>
+
+<span style="font-family: monospace;">add2cdd</span>
+is a useful script that accompanies <span style="font-family: monospace;">cdd</span>. It lets
+you add&nbsp;lines (records) to your database according to the desing principles of <span style="font-family: monospace;">cdd</span>, sorting the whole database file at the end. The separator is the same of <span style="font-family: monospace;">cdd</span>, since it's retrieved from <span style="font-family: monospace;">custom.data</span>. Here's an example of its usage (in bold the
+characters you type):<br>
+
+<br>
+
+<span style="font-family: monospace;">$ add2cdd data/whatever/dbname<br><br>You're going to add records to the database data/whatever/dbname:<br>press Enter in an empty 'Artist' field when you're over.<br><br>(Press Enter to begin)<br><br>Artist&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : someone<br>Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : sompthin'<br>Issue year (YYYY/v.v.) : 1978<br>Leave next field empty if you don't find any data<br>CD date (YYYY/empty)&nbsp;&nbsp; : 2010<br>Is this issue regular (y/n)? [y] <br>Publisher&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : nobody records<br>Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+: a vanishing episode!<br><br>Artist&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <br><br>Database updated and sorted.<br>There are 47 records in the database.<br><br>Creating text version...<br>Done. We're through!<br></span><span style="font-family: monospace;"><br>
+
+</span>The text version is a textual file add2cdd creates (using option
+-t of cdd - an aligned database), suitable for&nbsp;printer or
+pdf. Its name is all_&lt;dbname&gt;_database.txt.<span style="font-family: monospace;"><br>
+
+</span><br>
+
+To delete a record, starting from version 3.0.0, you can use option -d, and to modify a record in detail, you can use option -m.<br><br>Here's the help for <span style="font-family: monospace;">add2cdd</span>:<br><br><span style="font-family: monospace;">$&nbsp;add2cdd --help</span><br style="font-family: monospace;"><span style="font-family: monospace;">add2cdd : add ordered data to the cdd database</span><br style="font-family: monospace;"><span style="font-family: monospace;">Usage: add2cdd [OPTIONS] [filename]</span><br style="font-family: monospace;"><span style="font-family: monospace;">Options:</span><br style="font-family: monospace;"><span style="font-family: monospace;">&nbsp; -h --help&nbsp;&nbsp;&nbsp;&nbsp; shows this help</span><br style="font-family: monospace;"><br style="font-family: monospace;"><span style="font-family: monospace;">If a filename is given, all data will be written on it, otherwise data will be</span><br style="font-family: monospace;"><span style="font-family: monospace;">written on the default file cd.db. After the introduction, follow the wizard.</span><br style="font-family: monospace;"><span style="font-family: monospace;">If you type _ (underscore) from the second Artist prompt on, the Artist's name</span><br style="font-family: monospace;"><span style="font-family: monospace;">will be set equal to the previous one. If you type Return on an empty Title </span><br style="font-family: monospace;"><span style="font-family: monospace;">prompt, the Title will be set equal to the Artist's name. That's all.</span><br style="font-family: monospace;"><br><span style="font-family: monospace;">peryear</span> is a tool for extracting information in groups of years from the database; here's an example:<br><br><span style="font-family: monospace;">tonibin~$ peryear 1963<br><br>Database output for 1963<br>------------------------<br><br>YEAR 1963:<br>beatles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+a hard day's
+night&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1963
+2009&nbsp; + "a hard day's <br>beatles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+please please me (mono)&nbsp;&nbsp;&nbsp;&nbsp; 1963 2009&nbsp; box
+"beatles in <br>beatles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+with the beatles (mono)&nbsp;&nbsp;&nbsp;&nbsp; 1963 2009&nbsp; box
+"beatles in <br>dylan,
+bob&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the
+freewheelin'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1963
+----&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>4 records found.<br><br></span><span style="font-family: monospace;">------------------------<br></span><br>Here's the help for <span style="font-family: monospace;">peryear</span>:<br><br><span style="font-family: monospace;">$ peryear --help</span><br style="font-family: monospace;"><br style="font-family: monospace;"><span style="font-family: monospace;">peryear: extract info ordered by years using cdd from target file</span><br style="font-family: monospace;"><span style="font-family: monospace;">Usage: peryear [OPTIONS] [NNNN]</span><br style="font-family: monospace;"><span style="font-family: monospace;">Options:</span><br style="font-family: monospace;"><span style="font-family: monospace;">&nbsp; -e&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set ending year (default: current)</span><br style="font-family: monospace;"><span style="font-family: monospace;">&nbsp; -f 'filename'&nbsp; use 'filename' as target database (default: cd.db)</span><br style="font-family: monospace;"><span style="font-family: monospace;">&nbsp; -s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set starting year (default: 1950)</span><br style="font-family: monospace;"><span style="font-family: monospace;">&nbsp; -h --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show this help and exit</span><br style="font-family: monospace;"><br style="font-family: monospace;"><span style="font-family: monospace;">If NNNN is given (it must be a four-character year), starting and ending </span><br style="font-family: monospace;"><span style="font-family: monospace;">values will be set equal to it (equivalent to -s NNNN -e NNNN), unregardless</span><br style="font-family: monospace;"><span style="font-family: monospace;">to the values previously set with -s and/or -e options.<br><br></span><span style="font-family: monospace;">reformat&nbsp;</span>is
+a tool for updating older databases (without the publisher's field);
+don't worry: this is not an operation you must obligatorily do; but, in
+order to let a correct visualization of formatted output, the
+publisher's field should be surrounded by both the separators, and
+older versions didn't do this. Updating is slow, but the process must
+be accomplished once only.<br><big><span style="font-weight: bold;"><br>Download</span></big><span style="font-style: italic;"></span><span style="font-style: italic;"> last stable
+version</span>: <span style="font-weight: bold;">3.0.0</span>.<br>
+
+<span style="text-decoration: underline;"><br></span><span style="text-decoration: underline;">What's
+new in version 3.0.0</span> (&lt;&gt;)<br><span style="font-style: italic;"></span><ul><li>added the secondary search through the <span style="font-family: monospace;">+|- pattern2</span> figure</li><li>added option -d for letting the user to delete a record from the database if it matches a peculiar pattern</li><li>added option -m for letting the user to modify&nbsp;a record of&nbsp;the database if it matches a peculiar pattern</li><li>added the <span style="font-family: monospace;">reformat</span> tool to update an older database.</li><li>updated&nbsp;the usage manual</li><li>instructed <span style="font-family: monospace;">add2cdd</span> to add a final separator the whole record</li><li>(again) beautified the code and changed some&nbsp;comments here
+and there, assuring the fastest behavior</li></ul><span style="text-decoration: underline;">What's
+new in version 2.2.2</span> (November 7, 2010)<br><span style="font-style: italic;">Note: </span><span style="font-family: monospace;">cdd</span> <span style="font-style: italic;">has been used
+extensively by me, during these years. I added or changed small things
+over the years, and suddenly I realized that version 1.50 was far away.
+So I changed release&nbsp;number to 2; and,&nbsp;doing further small changes/addons and bug resolving, I
+had to increase&nbsp;the major and minor&nbsp;numbers too, up to 2.2.2. No intermediate
+versions have been uploaded.</span><br>
+
+<span style="font-style: italic;"></span>
+<ul><li>added the publisher's field to the database</li><li>added -u option for a fast usage help</li><li>added -t option for creating a database textual file</li><li>added
+the log system (every addition to the database is traced) and option
+-l&lt;n&gt; to print on terminal last &lt;n&gt; entries; option -L
+prints the whole log file</li><li>added option --add to cdd, that in turn calls <span style="font-family: monospace;">add2cdd</span>; now&nbsp;you may (as I do) pay your attention to one executable only.</li><li>re-added the uppercase output, available through option -U</li><li>added the secondary sorting key through option -S</li><li>added more customizable features to <span style="font-family: monospace;">custom.data</span></li><li>enhanced&nbsp;the exposition of the -y option notes</li><li>enhanced the usage manual</li><li>enhanced and expanded the <span style="font-family: monospace;">add2cdd</span><span style="font-family: monospace;"></span> tool</li><li>added the <span style="font-family: monospace;">peryear</span> tool</li><li>beautified the code and changed some&nbsp;comments here
+and there</li></ul><span style="text-decoration: underline;">What's
+new in version 1.5.0</span> (April 30, 2007)<br><span style="font-style: italic;">
+
+(I made all sorts of experiments on this script, so the versioning was
+messed-up. My fault. There's no intermediate&nbsp;distribution between 1.0.0 and
+1.5.0).</span><br>
+
+<span style="font-style: italic;"></span>
+<ul>
+
+  <li>changed all the database is lower letters: it's much more
+readable!</li>
+
+  <li>added more customizable features to <span style="font-family: monospace;">custom.data</span></li>
+
+  <li>added -N option to set the plain view</li>
+
+  <li>changed the exposition of the -y option notes</li>
+
+  <li>added more signals to be trapped</li>
+
+  <li>added a short manual</li>
+
+  <li>beautified the code and changed some&nbsp;comment here
+and there</li>
+
+</ul><span style="font-weight: bold;">
+
+</span><span style="text-decoration: underline;">What's
+new in version 1.0.0</span><span style="font-weight: bold;">
+</span>(November 25, 2006)<br>
+
+<span style="font-style: italic;"></span>
+<ul>
+
+  <li>everything</li>
+
+</ul>
+
+<span style="font-weight: bold;"></span><em></em><span style="text-decoration: underline;"><a name="Downloadable_files"></a>Downloadable
+files</span> (recommended for any system with bash 3.x):<br>
+
+<ul>
+
+  <li>the <a href="distrib/cdd.1.0.0.tgz">sources
+for 1.0.0</a>&nbsp;</li>
+
+  <li>the <a href="distrib/cdd.1.5.0.tgz">sources
+for 1.5.0</a></li><li>the <a href="distrib/cdd.2.2.2.tgz">sources for 2.2.2</a></li><li>the <a href="distrib/cdd.3.0.0.tgz">sources for 3.0.0</a></li>
+
+</ul>
+
+<span style="text-decoration: underline;"></span>
+
+It's GPL! Enjoy!<br>
+
+</body></html>

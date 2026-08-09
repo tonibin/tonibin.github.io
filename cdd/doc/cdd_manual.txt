@@ -1,0 +1,1378 @@
+cdd Manual
+----------
+
+The cdd set is a collection of tools for musical CDs database maintaining and
+consulting, written in bash. The set programs are:
+
+cdd             the data extractor
+peryear         a tool for printing the database in chunks ordered by years
+reformat        a tool for updating the database from previous versions
+
+cdd, peryear and reformat are executable files, and must be always written in 
+lower letters. 
+
+-------------------------
+
+Index
+
+1.  Basic usage: the primary search
+2.  Using options
+3.  Choosing output
+4.  Special searches
+5.  Sorting
+6.  The secondary search mechanism
+7.  The alternative search mechanism
+8.  Advanced editing commands
+9.  Profiling: setting user preferences
+10. Logging features
+11. Miscellaneous options
+12. Files management
+13. Help and documentation
+14. Tips
+
+All the examples presented here are real, that is extracted from real searches
+on my database. You may ask if I really own all the records in the examples;
+the answer is 'yes', I own more than 1800 records, and cdd let me manage them
+easily, otherwise I may risk to buy some title twice (it happened, of course,
+but only two or three times). That's why cdd was born.
+
+1. BASIC USAGE: THE PRIMARY SEARCH
+   -------------------------------
+
+The basic usage of cdd is very very easy; if you want to know about pink floyd,
+type (after cdd installation):
+
+$ cdd pink
+
+and cdd will parse the current default database file, printing all records
+matching the word pink, just as in the following example:
+
+$ cdd pink
+
+drake, nick       pink moon                      1972 2003                  
+frijid pink       frijid pink                    1970 1991  + 2 bonus tracks
+pink fairies      finland freakout 1971          1971 2008  live in finland 
+pink fairies      never never land               1971 2002  + 4 bonus tracks
+pink floyd        1967 - the first 3 singles     1967 1997                  
+pink floyd        london 1966/1967               1967 2005  "interstellar ov
+pink floyd        the piper at the gates of dawn 1967 1994                  
+pink floyd        a saucerful of secrets         1968 1994                  
+
+It's clear that 'pink' is a weak pattern for pink floyd, since it matches too 
+much; to refine the research, refine the pattern:
+
+$ cdd pink f
+
+pink fairies finland freakout 1971               1971 2008  live in finland 
+pink fairies never never land                    1971 2002  + 4 bonus tracks
+pink floyd   1967 - the first 3 singles          1967 1997                  
+pink floyd   london 1966/1967                    1967 2005  "interstellar ov
+pink floyd   the piper at the gates of dawn      1967 1994                  
+pink floyd   a saucerful of secrets              1968 1994    
+
+Now the pattern is 'pink f', and this pattern excludes all simple 'pink' words.
+But it's not enough, it must be refined again:
+
+$ cdd pink floyd
+
+pink floyd 1967 - the first 3 singles            1967 1997                  
+pink floyd london 1966/1967                      1967 2005  "interstellar ov
+pink floyd the piper at the gates of dawn        1967 1994                  
+pink floyd a saucerful of secrets                1968 1994               
+
+You are done. The list includes all of your pink floyd titles, and none else.
+
+Seen how simple cdd is? Ask, and let it take care of the answer.
+Some notes may be useful here:
+
+- the order of fields in a record is: 
+        - artist/group name
+        - cd title
+        - original record year 
+        - cd issue year
+        - notes
+        - label
+        - country
+        - discs number
+  this order reflects cdd upgrading through the years.
+
+- If no pattern is given, cdd silently quits, unless -C/--verbose, or an 
+  option implicitly operating also on the entire database (-@, -b, -i, -I, -J,
+  -d, -R) or an informative option (-h, -v, etc) or a secondary search is used. 
+  
+- Should some record data include a peculiar character, suitable to special 
+  interpretation by the shell - including '&', '[', ']', '(', ')' - use the 
+  dot in its place (which stands for 'any character') or escape it by \\;
+  e.g., searching for 'santana & mclaughlin' you cannot use the '&', because 
+  the ampersand is special to the shell; so type either
+  
+  $ cdd santana . mclaughlin
+  
+  or
+  
+  $ cdd santana \& mclaughlin
+  
+  the output listing will contain the right character; 
+
+  Another example: if you have to search for the string "(1967)", you cannot 
+  use the parentheses; in these cases, type the following:
+  
+  $ cdd \(1967\)
+
+  Notice that, each 'difficult' character is escaped by the \ character. 
+  
+  Another clue: the \ character itself must be typed four times: \\\\; since 
+  it's parsed twice, the first pass parses the first pattern \\\\ that is 
+  turned to \\, and then, during the second pass, it's parsed again, and \\ is 
+  finally turned to \.
+   
+- If you have a database with fields separated by a special character (not the
+  usual separators like the bar, the colon, the semicolon) such as the tab \t, 
+  the vertical tab \v, the backslash \\, once you have ordered your fields 
+  according to cdd (see up), you can consult your database with option -Z; 
+  for instance, if your separator is the tab (\t):
+
+  $ cdd -Z\\t -f <yourdb> <pattern>
+
+  Notice that you don't pass the tab character, rather it's escaped form, that
+  is '\t'; basing on what said before, you must write \\t in order to let cdd
+  understand it is the tab character, or you will pass \t, which is simply seen
+  as 't'.
+
+- To ease searches, the special characters ^ and $ may be used in the pattern
+  (in conjunction with option -x) meaning respectively 'starting with' and 
+  'ending with'; e.g.:
+
+  $ cdd -xt ^if
+  
+blossom toes   if only for a moment              1969 2007  + 7 bonus tracks
+caravan        if i could do it all over again,  1970 2001  + 4 bonus tracks
+crosby, david  if i could only remember my name  1971 2003                  
+if             if 2                              1970 1996  hf9626   
+        
+  searches all titles beginning with 'if';
+  
+  $ cdd -xa ng$
+
+gong                 you - (iii)                 1974 1990                  
+listening            listening                   1968 2004  curiously, the b
+spring               spring                      1971 2002  + 3 bonus tracks
+
+  searches all authors whose name ends with 'ng'.
+
+  Obviously, if you use both, you are replicating the exact search, and cdd
+  gets aware of this (try with the --verbose option, and see).
+
+- Here's an extract of a database text as it is:
+
+13th floor elevator|the psychedelic sounds of the 13th floor elevator|1966|2001||charly|usa|1|
+2nd vision|first steps|1980|2000|credited to etheridge and sanders under the title "2nd vision"|blueprint|gb|1|
+4 non blondes|bigger, better, faster, more!|1992|1992||interscope|usa|1|
+764 hero|nobody knows this is everywhere|2002|2002||tiger style|usa|1|
+
+  It seems hard to detect some info, in this mass of characters, but cdd's 
+  scope is just this: extract and present you data in very pleasant and ordered
+  lists, compact or large, complete or partial, according to your requests.
+
+   
+2. USING OPTIONS
+   -------------
+
+Single-hyphen options may be unique or cumulated, provided options needing an 
+argument are put in the last position of each group; moreover, spaces between 
+options and their argument are facultative; e.g.:
+
+   -sy -S p -xa -o l -Z% -Z over 
+   -l23 -lc 4 -p1 -z 40,20 -z50 -d r -cc
+   -aFkSc -ATo t -ABexa -UaZ% 
+   -Cs i -ap s -Wqz 3,66
+
+Single-hyphen options requiring an argument, as said, may or not have a space
+between the option and the argument, but two rules must be observed:
+
+        1. options shouldn't be followed by contiguous options
+        2. all arguments must be tight (no spaces in between)
+
+For instance:
+
+$ cdd -Z %a
+
+is not valid, because, Z expects a word after it (in this case '%a'), whose
+first char is %, and the rest is ignored; the correct way, since -a does not
+expect any argument, is:
+
+$ cdd -aZ % (also cdd -a -Z %)
+
+Besides, if you type:
+
+$ cdd -z3, 78
+
+cdd will interpret this as -z followed by 3, and '78' as the pattern. The
+correct way is of course:
+
+$ cdd -z3,78 (also cdd -z 3,78)
+
+Double-hyphen options must always be divided by a blank from and their 
+arguments, instead; e.g.:
+
+   --multi pop --move german_kraut --heal jazz
+
+2.1 Specific clues
+    --------------
+
+option -c does not expect arguments, but if you type -cc only the net
+number of records is printed, so that you could incorporate this to a script.
+
+option -d must be followed by a selector char for date categorization:
+   r    for reprint records (year and issue dates differ or year is v.v.)
+   o    for original records (year and issue dates match or issue is ----)
+
+option -l must be followed by a number, which will be set as the number of 
+printed log lines, possibly preceded by character 'c' for compact output
+(the character 'c' must be tight to l, i.e. -lc); if the number is absent or 
+illegal (e.g. a letter), the default 10 is used;
+
+option -p must be followed by a selector char for reverse sorting level:
+   1|s  for reversing the primary sorting level
+   2|S  for reversing the secondary sorting level
+
+options -s, -S, -x and -o must be followed by a selector char for a field:
+   a    for the artist's name,
+   c    for the artist's country
+   r|t  for the record title,
+   y    for the original record's year,
+   i    for the CD issue year, if found (type cdd -y for info),
+   l|p  [lower 'el'] for the label or publisher's name
+   n    for notes about the recordings (if you've got any);
+   d    for the number of discs
+   0    [zero] for special sorting with option -s (see below)
+
+option -Z must be followed by a word, whose first letter is set as the 
+new separator; special characters may be escaped (see up)
+
+option -z must be followed by one or two numbers, separated by comma; these 
+numbers specify the extension of notes for wide-notes and framed views, with 
+the first number indicating the starting column and the second the ending 
+colum; if one number only is used, it indicates the ending column; framed view, 
+in any case, does not use the first column number, which is fixed and 
+encapsulated in the frame;
+
+
+3. CHOOSING  OUTPUT
+   ----------------
+
+cdd investigates into the database and prints all the lines matching the search
+criterion (pattern) according to the following types of format:
+
+- Normal (plain)
+- Aligned
+- Framed
+- Title
+- Open
+- Extranotes
+- Group
+- Year
+- Widenots
+- Column output
+
+3.1 Plain
+    -----
+It's a format that reports all the unordered available information; it simply 
+changes the separator with a tab char (-N option). Here it is:
+
+$ cdd -N weller
+
+weller, paul    illumination    2002    2002    dvd contains the videoclip of "it's written in the stars" and 3 live videos, recorded at the route of kings, hyde park, london, july 28, 2002   independiente   gb      dvd + 1
+weller, paul    studio 150      2004    2004            v2      gb      1
+
+Not a very clear view, but it is complete, and rather compact.
+
+3.2 Aligned
+    -------
+It's a column format, in fixed fields adapted for an 80 characters wide 
+terminal (-A option); the fixed size of field, in reality, is... dynamic:
+when name's length is shorter than fixed size, the size is shortened and the
+gained size is given to the title.
+
+The publisher, the country and the discs number do not appear by default, due 
+to the few space left by the 80 characters; you can see them in place of notes 
+using -P for the publisher, -B for the country, -D for the discs number.
+
+This is my personal favourite format, customized in the cdd_profile. Many 
+examples in the following are retrieved from -A outputs. See the example:
+
+$ cdd -A pineapple
+
+pineapple thief 10 stories down                  2005 2011  cd 2 contains th
+pineapple thief little man                       2006 2010  remastered versi
+pineapple thief tightly unwound                  2008 2008                   
+
+using option -P on the same request, we got:
+
+$ cdd -AP pineapple
+
+pineapple thief 10 stories down                  2005 2011  kscope          
+pineapple thief little man                       2006 2010  kscope          
+pineapple thief tightly unwound                  2008 2008  snapper         
+ 
+using option -B on the same request, we got:
+
+$ cdd -AB pineapple
+
+pineapple thief 10 stories down                  2005 2011  gb              
+pineapple thief little man                       2006 2010  gb              
+pineapple thief tightly unwound                  2008 2008  gb            
+  
+using option -D on the same request, we got:
+
+$ cdd -AD pineapple
+
+pineapple thief 10 stories down                  2005 2011  2 cd            
+pineapple thief little man                       2006 2010                  
+pineapple thief tightly unwound                  2008 2008                 
+
+When there's a disc only, nothing is printed.
+Note: being a fixed size format, some data may be trimmed.
+      
+3.3 Framed
+    ------
+It's a format in which all the information is reported into a mask; it's useful 
+for writing stickers (-F option). It's space-consuming, but it's one of the few
+formats that reports in clear all the information. Here it is:
+
+$ cdd -F superstar
+
+------------------------------------------------------------------------------
+Artist    : webber, h. l. & rice, tim (gb)
+Album     : jesus christ superstar (2 cd)
+Issued in : 1973     CD date:  1987     Label:  mca
+Notes     : feat. carl anderson and ted neely
+------------------------------------------------------------------------------
+
+In monitors accepting colors, notes are blue and printed without breaking words.
+
+3.4 Titles
+    ------
+It's an aligned version column format in which only the artist and the title, 
+in a very large space, is shown (-T option), with the number of discs in 
+parentheses. This format is useful for reading the complete titles one per line 
+without using the space-consuming framed view. Again, as for the aligned view, 
+when name's length is shorter than fixed size, the size is shortened and the 
+gained size is given to the title.
+
+$ cdd -T soft machine
+
+soft machine v.v. grides (dvd + 1)                                             
+soft machine v.v. man in a deaf corner (2)                                     
+soft machine v.v. middle earth masters                    
+                     
+3.5 Extra-notes
+    -----------
+It's an aligned version column format in which only the title and the notes are 
+shown (-E option). This format is useful for reading notes one per line without 
+using the space-consuming framed view. Since the artist name is not reported, 
+you should search one author only, using option -x with a unambiguous pattern:
+
+$ cdd -E soft machine
+
+grides (cd+dvd)              live; cd was recorded oct. 25, 1970 at the concert
+man in a deaf corner (2 cd)  anthology 1963-1970 with a re-recording by jakko j
+middle earth masters         live, tracks 1-8 from middle earth, covent garden,
+
+This format should be rarely used (at least by my side), so I didn't preview 
+any resizing.
+
+3.6 Group operas view
+    -----------------
+It's a column format with a banner reporting the name of author (and the
+range of years, if required), followed by the list all original years and 
+titles of cds (-G option).
+
+The author's name is chosen as the first occurrence matching the pattern 
+(-x option); if the output is not the intended one, just refine the pattern.
+
+cdd -G smiths
+
+Works by smiths
+---------------
+1984  hatful of hollow                                                      
+1984  the smiths                                                            
+1985  meat is murder                                                        
+1986  the queen is dead                                                     
+1986  the world won't listen                                                
+1987  strangeways, here we come      
+                          
+To see the label, use option -P:
+
+$ cdd -GP smiths
+
+Works by smiths
+---------------
+1984  hatful of hollow - warner                                               
+1984  the smiths - warner                                                     
+1985  meat is murder - warner                                                 
+1986  the queen is dead - warner                                              
+1986  the world won't listen - wea                                            
+1987  strangeways, here we come - warner
+
+As said, if you require a range of years, the output is the following:
+
+$ cdd -G -R1984-1985 smiths      
+
+Works by smiths in the range 1984-1985
+--------------------------------------
+1984  hatful of hollow                                                        
+1984  the smiths                                                              
+1985  meat is murder    
+
+Nice feature: the underline line follows the length of the title!
+                                 
+3.7 Open format
+    -----------
+It's an aligned format, in which all fields are reported on a 160-character 
+line; this is useful to print the whole collection on a wide printer (capable 
+of 160 characters); the limit (160) may be changed in the cdd_profile.
+The next example is not clearly seen, because I write in an editor (vi) 80
+characters wide:
+
+$ cdd -O no.man
+
+no-man (gb)     carolina skeletons                     2004 2004  hidden art       ep with 4 tracks                                                             
+no-man (gb)     dry cleaning ray                       2004 2004  hidden art       mini-album compiling reinterpretations and original songs stemming from the w
+no-man (gb)     schoolyard ghosts (dvd + 1)            2009 2009  kscope           dvd contains high-resolution 24 bit stereo and 5.1 surround stereo version of
+
+Notice the dot in place of the hyphen, which would be misinterpreted by cdd. If
+your editor is capable of this, extend it to 160 characters width and see the
+whole lines unveiling in front of you.
+
+3.8 Wide notes format
+    -----------------
+It's a very useful format, in which the year, the issue date, the artist and 
+the title are reported, with a dynamic length for the artist and a lot of space 
+for the title, and in the following lines all the notes in full length.
+  
+$ cdd -W soft machine
+
+v.v. (2006) soft machine grides (cd+dvd)                                    
+   live; cd was recorded oct. 25, 1970 at the concertgebouw in amsterdam; dvd 
+   was recorded march 23, 1971 at radio bremen's tv studio in bremen 
+   (broadcast on march 27, 1971)                                              
+v.v. (2001) soft machine man in a deaf corner (2 cd)                        
+   anthology 1963-1970 with a re-recording by jakko jakszyk                   
+v.v. (2006) soft machine middle earth masters                               
+   live, tracks 1-8 from middle earth, covent garden, sept. 16, 1967, tracks 
+   9-10 from middle earth, roundhouse, may 1968, track 11 unknown, autumn 
+   1967; track 12 is not listed in the back cover and it's a 36 seconds 
+   version of "we did it again"          
+   
+In monitors accepting colors, notes are blue and printed without breaking words.
+                                   
+3.9 Year format
+    -----------
+It's a practical format deriving by the Wide Notes format, without the notes: 
+the year, the issue date in parentheses, the artist's name and the title are 
+printed, with a dynamic length for the artist and large space for the title:
+
+$ cdd -Y smiths
+
+1986 (1993) smiths the queen is dead                                        
+1986 (1993) smiths the world won't listen                                   
+1987 (1993) smiths strangeways, here we come                       
+
+3.10 Column output
+     -------------
+Column output is useful for general knowledge about the collection (option -o); 
+this option (selected output) takes precedence over -A, -E, -F, -G, -N, -O, -T,
+-W, -Y, and since the report is a one-field-only list, sorting options -s and 
+-S have no effect here: the report is always sorted alphabetically, unless -n 
+is used, by which the sorting is made by the frequency number, which is printed 
+before each output; options -p and --reverse/-r are also available here; 
+finally, if you want to use -n to see the frequence, with records ordered by 
+the one-field list, use option -s0 (sort-zero). See these examples:
+
+$ cdd -ot eloy
+
+  dawn
+  floating
+  inside
+  ocean
+  power and the passion
+  ra
+  silent cries and mighty echoes
+
+$ cdd -not eloy
+
+  1     dawn
+  1     floating
+  1     inside
+  1     ocean
+  1     power and the passion
+  1     ra
+  1     silent cries and mighty echoes
+
+The number means how many items were found. This is more useful for instance
+searching for the countries:
+
+$ cdd -noc -a
+
+  9     fra
+  9     gb/fra
+  9     pol
+  8     world
+  13    can
+  12    ger
+  145   ita
+  245   usa
+  365   gb
+
+This is more meaningful, isn't it? Do you want to sort by countries?
+
+$ cdd -noc -a -s0
+
+  13    can
+  9     fra
+  365   gb
+  9     gb/fra
+  12    ger
+  145   ita
+  9     pol
+  245   usa
+  8     world
+
+Another note: options -x uses only first pattern, for its search.
+
+3.11 Using views
+     -----------
+If typed together, the last among -A, -E, -F, -G, -N, -O, -T, -W, -Y is the 
+chosen view; each view has a unique output, with its own features; as said,
+some views may feature an automatic redimensioning of columns; specifically:
+   - aligned (-A), titles (-T) and wide notes (-W) views may shorten the artist 
+     column in favour of titles;
+   - open view (-O) may shorten the artist column in favour of notes.
+If you want to disable the automatic redimensioning (which may print 
+differently wide columns for diverse searches), you can use the specific 
+option --no-dynamic; this option disablse any redimensioning and may uniform
+your output.
+
+3.12 Altering output
+     ---------------
+There are some ways to alter characters during output; normally, all the text
+is stored in lower letters (even if you type them in capitals); the default
+format may be changed in the cdd_profile; but the following options may be
+useful:
+
+option --capitalized prints all words in the artist and title fields as
+capitalized, while, for efficiency reasons, the notes and the label fields
+remain in lower case (except the case for -o option); 
+
+option --upper/-U, instead, prints every character of the record in upper case;
+
+option --lower, conversely, prints every character of the record in lower case 
+(just the way it's stored); of course this is useful if you changed the default
+addressing;
+
+option --no-color will disable coloring; alternatively, you can set to void 
+string "" all color variables in cdd_profile; and if you want to export your 
+search to a textual file, you should use --no-color, to avoid weird characters 
+in the output file, e.g.:
+
+$ cdd --no-color <pattern> > search.txt
+
+
+4. SPECIAL SEARCHES
+   ----------------
+There are some option that influence search, not its appearance; you can get
+more precise and targeted searches using some of the following:
+
+4.1 Search in fields
+    ----------------
+option -x lets instructs cdd to search the pattern only in the field defined
+by the selector; thus, for instance, if you want to search for pink in the 
+titles, you can type:
+
+$ cdd -xt pink
+
+caravan     in the land of grey and pink         1971 2011  + 3 bonus tracks
+drake, nick pink moon                            1972 2003                  
+frijid pink frijid pink                          1970 1991  + 2 bonus tracks
+
+Seen? No Pink Floyd record has been selected, because no title contains the
+word pink.
+
+All fields may be addressed for search:
+
+$ cdd -xd 6
+
+beatles         collector's box                  v.v. 1991  bootleg, live   
+various artists live in monterey - festival pop  1967 1994  live            
+
+searches all the 6-cd box sets, while
+
+$ cdd -xc ger
+
+eloy            silent cries and mighty echoes   1979 2005  + 2 bonus tracks
+eloy            ra                               1988 1988                  
+eroc            changing skies                   1987 2006  + 9 bonus tracks
+fit + limo      that totally tore my head off    1991 1991                  
+
+selects only records made by German people.
+
+This option has effect only on the primary search, while secondary search 
+(the one introduced by +|-) is a simple select/exclude engine; beware that
+-x works with awk, which badly parse pat1 if it contains special characters 
+such as the open parenthesis; in this case don't use -x and try to limit the 
+search using + pat2; in some cases it may be useful to escape these special
+characters (see up).
+
+4.2 Searching in years ranges
+    -------------------------
+If you want to select only records belonging to a specific time period, you can
+use option -R; it requires two years (separated by a hyphen) which set the 
+range between which the search is contained, including the limits; there must 
+be no spaces before and after the hyphen, like in 
+
+$ cdd -R 1970-1974 ...
+
+If one year only is typed:
+
+$ cdd -R1970 ...
+
+the search is limited to that year; if a hyphen is left after the year:
+
+$ cdd -R1986- ...
+
+the search will be contained between the specified year and the current year; 
+to search for \"v.v.\" write just this:
+
+$ cdd -Rv.v. ...
+
+Option -R accept even 2-digits years, under the following rules:
+- if the year is in the range 00-49, it is moved to 2000-2049
+- if the year is in the range 50-99, it is moved to 1950-1999
+For instance:
+
+$ cdd -R92-02
+
+is read as -R1992-2002. This seems reasonable for the times we're living in.
+
+It accepts even your downward way of thinking; if you type:
+
+$ cdd -R1989-1983
+
+it is read as -R1983-1989, because cdd recognizes the inversion.
+
+Option -R is a simple select/exclude engine, which frees -x option for other 
+scopes. It works also with null pattern.
+
+4.3 Searching for originals/reprints
+    --------------------------------
+
+Option -d selects only records which are originals (selector o) or reprints
+(selector r), according to these rules:
+   - for reprint records year and issue dates differ or year is v.v.
+   - for original records year and issue dates match or issue is ----
+
+Example; search for originals by porcupine tree:
+
+$ cdd -do porcupine
+
+porcupine tree in absentia                       2002 2002                  
+porcupine tree deadwing                          2005 2005                  
+porcupine tree fear of a blank planet            2007 2007                  
+
+Of course, an original is not a reprint, so the inverse should have no matches
+with the previous search:
+
+$ cdd -dr porcupine
+
+porcupine tree on the sunday of life             1991 2007  compiles tracks 
+porcupine tree the sky moves sideways            1995 2007  second cd contai
+porcupine tree coma divine                       1997 2004* 2004 reissue; al
+
+Option -d is a simple select/exclude engine, which frees -x option for other 
+scopes. It works also with null pattern.
+
+4.4 Searching box-sets
+    ------------------
+
+Option -b selects only records that are marked as box-sets (see the Appendix,
+for the definition of box-sets, and option --add); example:
+
+$ cdd -b jumbo
+
+jumbo dna                                        1972 2010  6 cd box "progre
+jumbo jumbo                                      1972 2010  6 cd box "progre
+jumbo vietato ai minori di 18 anni?              1973 2009  6 cd box "progre
+ 
+In this case, option -X may be used to put in evidence this property:
+
+$ cdd -X jumbo
+
+jumbo dna [alt-pos]                              1972 2004                  
+jumbo dna [box-set] [alt-pos]                    1972 2010  6 cd box "progre
+jumbo jumbo [alt-pos]                            1972 2004                  
+jumbo jumbo [box-set] [alt-pos]                  1972 2010  6 cd box "progre
+jumbo vietato ai minori di 18 anni? [alt-pos]    1973 2004                  
+jumbo vietato ai minori di 18 anni? [box-set] [a 1973 2009  6 cd box "progre
+
+You see that I have double copies of these records, one contained in a box-set,
+the others independent; notice also that all are marked as in an alternative
+position (they are effectively digipack editions that don't fit my cd shelf)
+
+This option works also with null pattern.
+ 
+4.5 Searching records in alternative positions
+    ------------------------------------------
+Sometimes you may find that some records should be stored in a different
+position than that of the main collection. If you mark these as @lternative
+position records, option -@ find them for you; example:
+
+$ cdd -@ pink floyd
+
+pink floyd wish you were here                    1975 1992  black plastic po
+
+shows that this record is not in the same shelf of all other Pink Floyd cds,
+because it's slightly bigger, and don't fit the shelf, so I put it, with other
+of the same kind, in a proper place. Sometimes, it's a different thing: some 
+authors are special, and you want them near your cd-player, near your computer, 
+in your car, and so on...
+
+In all these cases, mark these records as "alternative position" records, so 
+that, if  you don't find them, ou may recall that you put them elsewhere.
+
+This option works also with null pattern.
+
+4.6 Searching irregular records
+    ---------------------------
+Option -i selects irregular records; I define as 'irregular' records that are 
+not faithful copies of the original, lacking one or more tracks (see the 
+Appendix). An irregular record has some trailing characters after the issue 
+year code (cdd inserts automatically a lower x), and is shown with an asterisk 
+aside of one of the years in various modes; for instance:
+
+$ cdd -i fairport
+
+fairport convention the history of...            1972 1995* lacks "crazy man
+
+Using another view, to see the note:
+
+$ cdd -Wi fairport
+
+1972*(1995) fairport convention the history of...                           
+   lacks "crazy man michael", originally part of this original 2lp anthology
+
+Or in framed mode:
+
+$ cdd -Fi fairport
+
+------------------------------------------------------------------------------
+Artist    : fairport convention (gb)
+Album     : the history of...
+Issued in : 1972     CD date:  1995*     Label:  island
+Notes     : lacks "crazy man michael", originally part of this original 2lp 
+            anthology
+------------------------------------------------------------------------------
+
+This option works also with null pattern.
+
+4.7 Searching for records with the 'unknown' mark
+    ---------------------------------------------
+Option -J selects only records with the 'unknown' mark, that is '^^^^'; I use 
+to place ^^^^, during the adding procedure, in fields for which I don't have 
+any data at the moment, reserving to 'heal' all records in a single pass at a 
+later time, by invoking option --heal; the 'unknown' mark may be written in 
+fields using the character '^' during a modifying procedure (see --modify/-m);
+example (simulated):
+
+$ cdd -PJ
+
+buckley, tim lorca                               1970 ----  ^^^^            
+buckley, tim honeyman                            1973 ^^^^  manifesto       
+
+This option works also with null pattern.
+
+4.8 Searching for records with no issue date
+    ----------------------------------------
+There a number of records, produced in the mid Nineties, which were dubious
+copies of dubious originals, from dubious labels, that used to put no issue 
+date on the poor documentation of the cd (often a single one-side-printed 
+sheet). Finding information for these issue proves hard, even in Internet. So
+it may be necessary, temporarily, mark them as 'no-issue', during the adding
+procedure; cdd inserts the string '----' in the issue year; option -I finds
+quickly all of them; example (simulated)
+
+$ cdd -f buck -PI
+
+buckley, tim lorca                               1970 ----  ^^^^            
+buckley, tim greetings from l.a.                 1972 ----  warner         
+
+This option work also with null pattern.
+
+4.9 Inversion of special searches
+    -----------------------------
+Options -@, b, -R, -i, -I and -J (all special searches options but -d and -x)
+may be inverted using option --not.
+An example: option -J selects uncomplete records (the ones with the 'unknown'
+mark); suppose you type:
+
+$ cdd -J focus
+
+it will list all of your focus entries which have the 'unknown' mark. If you
+want, instead, to list all of your focus entries which are complete, type:
+
+$ cdd -J --not focus
+
+this will list all of your focus entries which do not have the 'unknown' mark;
+
+Another example: you want to select you beatles entries from 1962 to 1964:
+
+$ cdd -R62-64 beatles
+
+But if you add the --not option:
+
+$ cdd -R62-64 --not beatles
+
+it will list all your beatles entries from 1961 downward and from 1965 upward.
+In practice, it will exclude entries from 1962 to 1964, which is the opposite
+of the previous search.
+
+Hope you find it useful.
+
+
+5. SORTING
+   -------
+
+The output may be sorted according to any field; if you don't specify any
+sorting, cdd will sort output according to the following default fields:
+- artist's/group name as primary key
+- CD year (the original CD/LP date) as secondary key
+
+Primary sorting is driven by option -s, secondary sorting by option -S.
+
+Default values may be customized into the custom.data file as a one-letter 
+string reporting the field selector (one among a|r|t|y|i|p|l|n|c).
+
+Consider the following example, in which we want the cd year as primary key 
+and the album title as secondary key:
+
+$ cdd -sy -St -xa pink
+
+pink floyd        1967 - the first 3 singles     1967 1997                  
+pink floyd        the piper at the gates of dawn 1967 1994                  
+pink floyd        a saucerful of secrets         1968 1994                  
+pink floyd        ummagumma                      1969 1994                  
+pink floyd        atom heart mother              1970 1994                  
+frijid pink       defrosted                      1971 1991  + 4 bonus tracks
+pink fairies      finland freakout 1971          1971 2008  live in finland 
+pink floyd        meddle                         1971 1992                  
+pink floyd        relics                         1971 1995  original antholo
+pink fairies      kings of oblivion              1973 2002  + 4 bonus tracks
+pink floyd        animals                        1977 1994                  
+pink floyd        the wall                       1979 1994                  
+pink floyd        the division bell              1994 1994                  
+pink mountaintops outside love                   2009 2009           
+
+Option -p may reverse a specific sorting level; suppose to invert secondary
+sorting in the previous example:
+
+$ cdd -sy -St -pS -xa pink
+
+pink floyd        the piper at the gates of dawn 1967 1994                  
+pink floyd        1967 - the first 3 singles     1967 1997                  
+pink floyd        a saucerful of secrets         1968 1994                  
+pink floyd        ummagumma                      1969 1994                  
+pink floyd        atom heart mother              1970 1994                  
+pink floyd        relics                         1971 1995  original antholo
+pink floyd        meddle                         1971 1992                  
+pink fairies      finland freakout 1971          1971 2008  live in finland 
+frijid pink       defrosted                      1971 1991  + 4 bonus tracks
+pink fairies      kings of oblivion              1973 2002  + 4 bonus tracks
+pink floyd        animals                        1977 1994                  
+pink floyd        the wall                       1979 1994                  
+pink floyd        the division bell              1994 1994                  
+pink mountaintops outside love                   2009 2009        
+
+There is a special sorting level for option -s (not for -S), evaluated as 
+follows: 
+- with plain numbered view (-n -N), the -s0 option sorts output according to 
+  the order-number (first column); 
+- with the column output (-n -o) the -s0 option sorts output according to data 
+  column, otherwise it's sorted according to the frequency column.
+
+Option -r reverse contemporarily both searches criterions.
+
+There's a 3d unmanageable hidden level of sorting fixed to the original 
+record's year (just for your knowledge).
+
+
+6. SECONDARY SEARCH
+   ---------------- 
+To refine a searching process, a secondary search mechanism has been added; it 
+is specified through a series of secondary patterns, each preceded either by 
+'+' or by '-'; if '+' is used, only lines with this pattern will be retained 
+for the output (among the remaining records matching pattern); if '-' is used, 
+all lines with this pattern will be excluded from the search; an example is one 
+thousand words (this example is from a simulated database: paul buckley is a fake artist!):
+
+$ cdd buckley
+
+buckley, jeff grace                              1994 1994                  
+buckley, jeff mystery white boy                  v.v. 2000  posthumous live 
+buckley, paul time is on my side                 1980 1993  this don't exist
+buckley, tim  live at the folklore center, nyc - 1967 2009  live 1967, march
+buckley, tim  happy sad                          1969 1989                  
+buckley, tim  lorca                              1970 ----                  
+buckley, tim  greetings from l.a.                1972 ----                  
+buckley, tim  honeyman                           1973 1995  live 1973, nov. 
+
+If I wanted only tim buckley's works:
+
+$ cdd buckley + tim
+
+buckley, paul time is on my side                 1980 1993  this don't exist
+buckley, tim  live at the folklore center, nyc - 1967 2009  live 1967, march
+buckley, tim  happy sad                          1969 1989                  
+buckley, tim  lorca                              1970 ----                  
+buckley, tim  greetings from l.a.                1972 ----                  
+buckley, tim  honeyman                           1973 1995  live 1973, nov. 
+
+Here, paul buckley matches the secondary search because 'tim' is contained into 
+the title 'time is on my side'. Now:
+
+$ cdd buckley - tim
+
+buckley, jeff grace                              1994 1994                  
+buckley, jeff mystery white boy                  v.v. 2000  posthumous live 
+
+because all records with 'tim' have been ignored. I could get the same effect 
+using 'cdd buckley + jeff', of course.
+
+A note is worth reporting here: -x option acts **before** the secondary search.
+Consider the following, for choosing only tim buckley records: 
+
+$ cdd -xa tim + buckley
+
+buckley, tim live at the folklore center, nyc -  1967 2009  live 1967, march
+buckley, tim happy sad                           1969 1989                  
+buckley, tim lorca                               1970 ----                  
+buckley, tim greetings from l.a.                 1972 ----                  
+buckley, tim honeyman                            1973 1995  live 1973, nov. 
+
+I searched for lines containing 'tim' (surely founding tim and paul buckley 
+among many others), then I applied -x to search 'tim' in the author's field 
+(thus excluding paul), then I selected only those containing buckley.
+
+Another note: options -x uses only first pattern, for its search.
+
+7. ALTERNATIVE SEARCH
+   ------------------
+The alternative search is activated when no match occurs: if the pattern can be 
+split into two or more words, cdd repeats the search (with the very same 
+options) over each word.
+
+To disable this mechanism use option --keep (that means: keep last search).
+
+
+8. ADVANCED EDITING COMMANDS
+   -------------------------
+Beware: 
+- <these> are mandatory arguments, [these] are facultative arguments; 
+- [options] is a dummy word to show where other options should be typed (in 
+  particular where you can use -f/--file to change current database file); 
+- the last typed among the following commands will be the one executed by cdd;
+
+8.1 ADDING RECORDS
+    --------------
+
+$ cdd [options] --add [file]
+
+This command will start the adding procedure; if [file] is given, additions 
+will be made to this file, otherwise they will be made to current database.
+
+Please take note: --add doesn't use any pattern and interprets the first
+following argument as the target database name, ignoring other arguments.
+
+8.2 DELETING RECORDS
+    ----------------
+
+$ cdd [options] --delete [options] <pattern>
+
+This command will print in turn any record matching <pattern> in the current 
+database: hitting 'd' will delete it from current database, 'a' will delete 
+all matches, 'x' will quit, any other key will print next match.
+
+Please take note: --delete does not parse [pat2], so that <pattern> is 
+everything following, and <pattern> must not be null.
+
+8.3 MOVING RECORDS
+    --------------
+
+$ cdd [options] --move <file> [options] [pattern]
+
+This command will print in turn any record matching [pattern] in the current 
+database: hitting 'm' will move the matching record to database <file>, 
+removing it from current database, 'a' will move all matches, 'x' will quit, 
+any other key will print next match; if [pattern] is null, this command moves 
+all records; option --remove is applicable here to delete <file> before moving.
+
+Please take note: --move does not parse [pat2].
+
+8.4 COPYING RECORDS
+    ---------------
+
+$ cdd [options] --copy <file> [options] [pattern]
+
+This command will print in turn any record matching [pattern] in the current 
+database: hitting 'c' will copy the matching record to database <file>, 'a'
+will copy all matches, 'x' will quit, any other key will print next match.
+
+If [pattern] is null, this command copies all records.
+
+Option --remove is applicable here to delete <file> before copying.
+
+Please take note: --copy does not parse [pat2].
+
+8.5 DUPLICATING RECORDS
+    -------------------
+
+$ cdd [options] --duplicate [options] <pattern>
+
+This command will print in turn any record matching [pattern] in the current 
+database: hitting 'd' will duplicate the matching record, 'a' will duplicate
+all matches, 'x' will quit, any other key will print next match.
+
+Please take note: --duplicate does not parse [pat2].
+
+8.6 MODIFYING RECORDS IN ALL FIELDS
+    -------------------------------
+
+$ cdd [options] --modify [options] <pattern>
+$ cdd [options] -m [options] <pattern>
+
+This command, in either form, will print in turn any record matching <pattern> 
+in the current database: hitting 'm' will start the modifying procedure over 
+the matching record, 'x' will quit, any other key will print next match.
+
+The modifying procedure asks, for each field, the text to be replaced (which 
+is printed in brackets), under the following conventions:
+   - the (new) typed text will substitute the original field content, but
+   - if typed text begins with '&', it will be added to the original string
+   - if typed text ends with ':', it will be put before the original string
+   - typing '-' (hyphen) will clear the original text
+   - typing '^' (circumflex) will set original text as the 'unknown' mark ^^^^
+   - typing '_' (underscore) as the new Title, will set it equal to Artist;
+
+Please take note: --modify does not parse [pat2].
+
+8.7 CHANGING A RECORD'S FIELD CONTENT
+    ---------------------------------
+$ cdd [options] --change <field> "<oldpattern>" "<newpattern>" [options]
+
+This command will print in turn any record matching <oldpattern> in the current 
+database, where <field> may be artist|a|name, country|c, title|record|t|r, 
+year|y, issue|i, notes|note|n, publisher|label|p|l, number|disc|discs|d.
+
+If patterns should include spaces or other special characters, enclose them in 
+double or single quotes, for the shell to interpret them correctly; hitting 'c' 
+will apply the substitution on all occurrences in the field, 'x' will quit, 'a' 
+will apply the substitution on all occurrences for all matches, any other key 
+will print next match.
+
+It's important to understand that this command does not change all the field's
+content, but only all occurrences of <oldpattern> in the field itself; suppose 
+there is such record (of course fake):
+
+partan tartan tan in pakistan                    1978 2009              
+
+and that we want to change any occurrence of 'tan' with 'lak'; we could type:
+
+$ cdd --change title tan lak
+
+and we will end with:
+
+partan tartan lak in pakislak                    1978 2009        
+
+To change only one occurrence, enlarge the pattern:
+
+$ cdd --change title 'tan in' 'lak in'
+
+partan tartan lak in pakistan                    1978 2009        
+
+The metacharacter '*' may be used into <oldpattern> to match part of or the 
+entire content of any field, e.g.:
+
+$ cdd --change year "*" "1980"
+
+will set any record year's field to 1980, whatever it is; the report count, 
+of course, won't include records whose year is already equal to 1980, beacuse
+they are not really "changed"; if used in <newpattern>, instead, the "*" stands
+for the asterisk itself.
+
+The void string "" may be used as the whole <newpattern>, and in this case the 
+substitution will consist in a mere character-elimination, e.g.:
+
+$ cdd --change notes "bla " ""
+
+will delete all occurrences of "bla " (with space) in all matching note fields.
+
+Please take note: --change does not use any other pattern.
+
+8.8 REPLACING FIELDS
+    ----------------
+
+If changing all occurrences of a mistaken word or phrase using --change is not
+enough, because the whole field deserves a new rewriting, option --replace
+comes in handy:
+
+$ cdd [options] --replace <field> [options] <pattern>
+
+This command will print in turn any record matching <pattern> in current 
+database, where <field> may be artist|a|name, country|c, title|record|t|r, 
+year|y, issue|i, notes|note|n, publisher|label|p|l, number|disc|discs|d; the 
+replacing procedure asks the text to be replaced (which is printed in brackets)
+under the same conventions of the --modify option.
+
+Please take note: --replace does not parse [pat2].
+
+8.9 HEALING RECORDS
+    ---------------
+
+As already said (about option -J), my convention for unknown data to be put in
+the --add option routine is to write four ^: ^^^^; this means, to me, that data
+may be available (by reading the booklet or searching in internet), but the
+moment, the hurry, the hour, may not be favorable; in this case the database is
+not complete, and should be healed when all info is available; precisely the
+moment to use option --heal:
+
+$ cdd [options] --heal [file] [options]
+
+This command starts a special modifying procedure over each match containing 
+the symbol ^^^^ (the 'unknown' mark); if [file] is given, the procedure will 
+act upon this file, otherwise it will act upon the current database.
+
+Please take note: --heal does not use any pattern.
+
+8.10 INVERTING ALTERNATIVE POSITION OR BOX-SET STATUS FLAG
+     -----------------------------------------------------
+Have you ever decided to move all record of an artist/group from one place to
+another? I did, because new purchases may not fit the few space left. In this
+case, using option --modify could be stressing, because you must retain all but
+one info. In this option --invert in very useful:
+
+$ cdd [options] --invert <type> [options] [pattern]
+
+This command will print in turn any record matching [pattern] in the current
+database; <type> must be 'pos' for the alternative position status and 'box' 
+for the box-set status; hitting 'i' will invert the correspondent status flag, 
+'a' will invert all matches, 'x' will quit, any other key will print next 
+match; if [pattern] is null, inverts all <type> records status flag.
+
+Please take note: --invert does not parse [pat2].
+
+8.11 WIDENING THE SEARCH RANGE
+     -------------------------
+Do you use multiple database files, one for rock and one for jazz, or one for
+the beatles and one for all the rest? But what if you want to search all 1968
+records? Do multiple searches? No, use one compact and only search, with 
+option --multi:
+
+$ cdd [options] --multi <file> [options] pattern>
+
+This command will add database <file> to the search for <pattern>; this option 
+is iterable, thus:
+
+$ cdd [options] --multi <file1> --multi <file2> [options] <pattern>
+   
+will search over current database plus <file1> plus <file2>, and so on. The 
+original databases will not be affected by this command: the procedure followed
+by cdd is to create a temporary file which is a sum of all the chosen files.
+
+Please take note: as said, the searching file created by cdd is a temporary 
+file, holding records of all specified added files plus the current database; 
+this means that there's no use in healing, deleting, changing fields or 
+modifying records in conjunction with the --multi option, because any change 
+will be applied to this temporary file and then lost; on the contrary, with the 
+--multi option, you can move or copy records to other databases, since records 
+are faithful copies from the original files.
+
+Please take note again: if you have to use -f/--file in conjunction with 
+--multi, you should type -f/--file *before* --multi, unless you want the 
+default database to be considered too.
+
+8.12 BUILDING CUMULATIVE SEARCHES
+     ----------------------------
+Suppose you want to search for records of colosseum and focus, for a future
+purchase; you can certainly search for both in two distinct searches, but you
+can do it in one turn with option --mix:
+
+$ cdd [options] --mix [options] <pat1> <pat2> ... [+|- <pat3>] ...
+
+This command will build an output searching contemporarily in the current 
+database for <pat1> and <pat2> and all other patterns in the chain; the output 
+is equivalent to the sum of the single searches and is filtered against double 
+occurrences; the secondary search, which is available, acts upon the cumulative 
+output; option -x, the search in fields, is available. E.g.
+
+$ cdd --mix -sy -xa colosseum focus - 'out of' 
+
+colosseum the grass is greener                   1969 2011  usa edition of "
+colosseum those who are about to die salute you  1969 2004  + 6 bonus tracks
+colosseum daughter of time                       1970 2004  + 1 bonus track 
+focus     in and out                             1971 2001  uk version; orig
+focus     moving waves                           1971 2001                  
+colosseum valentyne suite                        1972 1998                  
+focus     3                                      1972 2001* lacks "house of 
+   
+Notice the -sy option to order by years and the secondary search to exclude
+the pattern 'out of' (referring to the group 'out of focus', which I don't want
+to appear in my search). I couldn't use the simple 'out' pattern, because it
+would discard the record 'in and out' by focus.
+
+If there are spaces into the patterns <pat1>, <pat2>, and so on, use the 
+underscore '_' or the dot in their place, e.g.
+
+$ cdd --mix tangerine_dream smiths
+$ cdd --mix tangerine.dream smiths
+
+will search contemporarily for 'tangerine dream' and 'smiths'; the clue is that 
+the underscore _ is turned into a space, while the dot matches any character.
+Beware.
+
+
+9.  PROFILING (cdd_profile/restoring...)
+. to temporarily restore to default all features you changed in cdd_profile, 
+   you can use: 
+   --lower, --upper/-U, --capitalized to readdress the font case; 
+   --single, --no-single to readdress the secondary search mechanism; 
+   --keep/-k, --no-keep to readdress the alternative search mechanism; 
+   --verbose/-C, --no-verbose to readdress verbosity;
+   --log, --no-log to readdress logging
+The cdd directory
+-----------------
+
+When you launch cdd for the first time, it creates a subdirectory in your $HOME
+directory - called .cdd/ - where all database files should be stored (but you 
+can host them where you want) and where all system and temporary files are 
+created and destroyed without interfering with your other files. The default
+cd.db database is created in this directory.
+
+In particular, you are invited to edit the file cdd_profile, which is created
+in the cdd directory at first launch, containing some user-customizable flags
+and variables which may be changed, to adapt cdd behaviour to the user's will.
+When editing, remember to respect upper and lower characters and formats (in
+special way, respect the leading $, which defines the status of variable in
+bash).
+
+
+10. LOGGING (-l/-w/--no-log)
+. option --when/-w doesn't use [pat2], and interprets everything that follows 
+   as the pattern to search in the log file;
+
+11. VARIA (-X/--lp/-c(-cc)/-a/-q/no-dynamic/verbose
+. option -X enables the printing of labels for alternative position or 
+   box-set records: if the record entry is stored as part of a box-set, the 
+   string \"[box-set]\" is appended to the title; analogously, if the record 
+   entry is stored as placed in an alternative position than the main cd 
+   collection, the string \"[alt-pos]\" is appended to the title; see options 
+   -@, -b and --notes. These data are managed by --add and may be changed by 
+   --modify and --invert;
+. option --lp activates the lp mode; this mode simply substitutes some
+   strings (originally referred to the CD world) to the LP world; you can
+   set this option as default in the cdd_profile
+Options -@, -b, -i, -I and -J have a double usage; if used without pattern, 
+they work on the entire database, otherwise select the records matching the 
+pattern. In the first case, since they scan the entire database, the output is 
+slow (depending on the size of the database, of course).
+Beware: if they are cumulated, their effect will be cumulated as well.
+For instance, if you use contemporarily options -i, -I and -J, cdd will select 
+all records (matching the pattern or not) that are contemporarily irregular in 
+the track list (-i), irregular because the CD date is unknown (-I) and 
+incomplete in one or more fields (-J).
+
+Option --heal launches a modifying procedure over all records where the 
+'unknown' mark appear (when I register recently bought records to the database,
+I often don't have the time to fill all the fields, so I write the artist's 
+name and the title, filling all other fields with ^^^^. Later on, tipycally 
+during weekends, I launch cdd --heal and all records containing ^^^^ are 
+searched and shown for me to start a modifying procedure over them. 
+Nice, isn't it?).
+
+
+
+12. FILES (check, --file, --path/PATH
+The database file
+-----------------
+
+The database file is cd.db (this is the default file reference, but you can 
+customize the file name changing cdd_profile); cd.db must be a UNIX text file, 
+editable by means of any editor (mac and win text format may result in
+wrong outputs).
+
+If you want to specify a different database file other than the default, 
+there's no need to effectively modify the custom.data file; you can use any 
+other file by specifying its name through -f/--file option: 
+
+$ cdd -f other.file [pattern]
+
+will act upon other.file, whatever it is.
+
+The database is a text file, where records are listed one per row. Each record 
+is composed by some fields, separated by a special character (by default this 
+is the vertical bar, but again customizable into the file cdd_profile, or you
+can use option -Z, that lets you use a different separator on-the-fly).
+
+Fields are (in this strict order in the file record):
+
+Artist(s)     : the name of the author(s)/group
+Title         : the title of the record
+Year          : the year in which the record was issued
+Issue         : the year of the product manufacture (the CD data)
+Notes         : some notes in free format
+Label         : the label/publisher/editor's name
+Country       : the country of the author(s)/group
+
+Any field but the first may be void. All data are converted to lower characters.
+
+Here's an example of some cdd database entries:
+
+aerogramme|a story in white|2001|2001||chemikal underground||
+byrds|the preflyte sessions (2 cds)|v.v.|2001||sundazed|usa|
+vulcan's hammer|true hearts and sound bottoms|1973|----|no track listing|radioactive|gb|
+
+The first line has no country nor notes, the second line contains no notes, 
+the third no issue date.
+
+In any case, don't worry if this seems odd and quite unreadable: cdd's purpose
+is just this: letting you store info in the correct format without worrying
+about 'how' to do it, and making all the stored data available in many ways and
+formats and, above all, in clear. 
+. all options requiring a file name (--file, -f, --move, --copy, --add, 
+   --multi, --heal), evaluate the given file name according to the following 
+   rules: if it's an absolute reference, it's taken as it is; otherwise, it's 
+   searched in cdd home directory (by default \$HOME/.cdd/), adding the default 
+   database extension (by default $ext) if necessary; then it's searched in 
+   the current directory, adding again the default extension, if necessary; 
+   eventually, the name is taken as it is; once file is checked, it's then
+   carefully tested: for options dedicated to search (-f, --file, --multi, 
+   --heal) the file must be a not-empty regular file (i.e. not a directory nor 
+   a device); for options dedicated to manipulating records (--add, --copy,
+   --move) the file must not be a directory, but can be an empty or unexisting
+   file: it will be populated or created at need;
+. the two informative options --path and --PATH have different scopes; the
+   first gives information about current path, database file, temporary file
+   and log file (names and position), and exit; the second outputs current cdd 
+   directory, and is useful in scripts or shgell commands in which you want to 
+   use cdd dir and you don't want to bother to learn it by heart; simply write 
+   \$(cdd --PATH) and you will get a string to be used in every possible script 
+   or command contest, e.g.
+   \$ touch \$(cdd --PATH)jazz.db
+   to create a file named jazz.db in the current cdd directory, or
+   \$ rm \$(cdd --PATH)jazz.db
+   to remove file jazz.db from current cdd directory.
+
+
+13. HELP (-h/-u/-v/--manual.../notes/
+<TODO>
+
+
+   

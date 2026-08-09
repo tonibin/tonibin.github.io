@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>deer</title>
+  <meta name="description" content="Dartmouth Environment Emulator &amp; Renderer">
+  <meta content="Antonio" name="author">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(207, 255, 216);" link="#000099" alink="#000099" vlink="#990099">
+<div style="text-align: center;"><big><big><big>deer</big></big></big><br>
+</div>
+<div style="text-align: center;"><big>the <span style="font-weight: bold;">D</span>artmouth <span style="font-weight: bold;">E</span>nvironment <span style="font-weight: bold;">E</span>lementary <span style="font-weight: bold;">R</span>enderer</big><br>
+<big>
+</big></div>
+<div style="text-align: center;"><big><img style="width: 455px; height: 373px;" alt="deer" src="deer.png"></big><br>
+</div>
+<big>
+</big>
+<div style="text-align: justify;">
+</div>
+<hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;">
+<div style="text-align: justify;"><a href="#Introduction">Introduction</a><br>
+<a href="#Documentation">Documentation</a><br>
+<a href="#Installation">Installation</a><br>
+<a href="#Download">Download</a><br>
+</div>
+<hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;">
+<div style="text-align: justify;">
+</div>
+<h4 style="text-align: justify;"><a name="Introduction"></a>Introduction</h4>
+<div style="text-align: justify;">
+<span style="font-family: monospace;">deer</span> is
+the Dartmouth Environment Elementary Renderer, a set of
+programs for emulating&nbsp;the original Dartmouth Time-Sharing Sustem (DTSS), the same on
+which the first BASIC compiler ran in 1964. <span style="font-family: monospace;">deer</span>&nbsp;at present is composed of three programs:<br>
+</div>
+<ul style="text-align: justify;">
+  <li>the DTSS Emulator,&nbsp;written in
+bash and working on UNIX or UNIX-like modern system (1964). This engine is named <span style="font-family: monospace;">deer</span>, of course. <span style="font-family: monospace;">deer</span> is largely adaptable because it can be set to use any BASIC or ALGOL compiler, provided you have them installed. </li>
+  <li>the BASIC interpreter, written in C, and emulating the version III of the Original Dartmouth BASIC language (1966). The interpreter is named <span style="font-family: monospace;">dib</span> (which means Dib Is Basic) and, as a standalone executable, may be used even outside of the <span style="font-family: monospace;">deer</span>engine.</li>
+   <li> The ALGOL interpreter, in the Darthmouth style (with numbered lines, only for input purposes). This emulator (1965) is called <span style="font-family: monospace;">dia</span> (which means Dia Is Algol) and, as <span style="font-family: monospace;">dib</span>, can be used as a standalone executable.</li>
+   </ul>
+<h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
+<div style="text-align: justify;">
+Available documentation (which is contained into the downloadable
+package and is linked here for your convenience):<br>
+</div>
+<ul style="text-align: justify;">
+  <li>The <span style="font-family: monospace;">deer</span> <a href="doc/deer_manual.pdf">manual</a>
+ upon the Operating System: how to write, save, execute and manage your files and programs</li>
+  <li>The <span style="font-family: monospace;">dib</span> <a href="doc/dib_manual.pdf">manual</a>
+notes about the <span style="font-family: monospace;">dib</span> BASIC language features</li>
+  <li>The <span style="font-family: monospace;">dia</span> <a href="doc/dia_manual.pdf">manual</a>
+notes about the <span style="font-family: monospace;">dia</span> ALGOL language features</li>
+</ul>
+<h4 style="text-align: justify;"><a name="Installation"></a>Installation</h4>
+<div style="text-align: justify;">
+The <span style="font-family: monospace;">deer</span>
+bash script may be executed anywhere, provided you put it
+into a directory contained into the PATH; the <span style="font-family: monospace;">dib/dia</span> executables,
+instead,
+before use, must be compiled and installed. I suggest the following
+(easy) procedure:<br>
+<br>
+THE <span style="font-family: monospace;">deer</span> SCRIPT
+<br>
+1) Copy the package somewhere, and unpack it using tar:<br>
+<span style="font-family: monospace;">$ tar zxvf deer.1.0.beta.tgz<br>
+$ cd distrib/<br>
+</span>
+2) Type:<br><span style="font-family: monospace;">$ make install<br></span> to create the environment and copy the documentation. This requires no root privileges.<br>
+3) Type:<br><span style="font-family: monospace;">$ make maninstall<br></span> to install the man page. If this requires root privileges, type:<br><span style="font-family: monospace;">$ make maninstall<br></span>: you will be requested of the root password to procede.
+<br><br>
+THE <span style="font-family: monospace;">dib</span> AND <span style="font-family: monospace;">dia</span> EXECUTABLES
+<br>
+1) Copy the package somewhere, and unpack it using tar:<br>
+<span style="font-family: monospace;">$ tar zxvf dib.1.0.beta.tgz<br>
+$ cd distrib/
+</span><br>
+2) Type:<br><span style="font-family: monospace;">$ make install<br></span>If this should require root privileges, type <br><span style="font-family: monospace;">$ sudo make install</span><br>you will be asked for the root password.<br>
+This procedure will install the executable and the relative man page.<br>
+3) Now type the following:<br>
+<span style="font-family: monospace;">$ sh deer --help</span><br style="font-family: monospace;">
+<span style="font-family: monospace;">$ dib --help</span><br>
+<span style="font-family: monospace;">$ dia --help</span><br>
+to know they are correctly installed, learn the basic facts,&nbsp;and you're done! If you please, copy the <span style="font-family: monospace;">USER</span> directory (contained in the <span style="font-family: monospace;">distrib/</span> directory) to your home deer directory (which is located under <span style="font-family: monospace;">$HOME/.deer</span>). There you will find&nbsp;many examples, ready to be run.<br>
+</div>
+<h4 style="text-align: justify;"><a name="Download"></a>Download</h4>
+<span style="text-decoration: underline;">
+Version 1.0.beta</span> (Aug. 10, 2026)<br>
+</div>
+<ul style="text-align: justify;">
+	<li>This is the first beta version with a revised DTSS emulator, the revised BASIC version III (simplified and bettered) and the ALGOL engine (directly from <a href="../taxi/">taxi</a>; the FORTRAN engine (dif) is being designed and will be available hopfully soon.</li><br>
+    Download <a href="distrib/deer.1.0.beta.src.tgz">deer</a><br>
+    Download <a href="distrib/dib.1.0.beta.src.tgz">dib</a><br>
+    Download <a href="distrib/dia.1.0.beta.src.tgz">dia</a><br>
+</ul>
+<div style="text-align: justify;">
+<span style="text-decoration: underline;">
+	Version 1.0.alpha</span> (Dec. 06, 2008)<br>
+</div>
+<ul style="text-align: justify;">
+  <li>This was the first complete uploaded version, limited to a reduced version of the DTSS emulator and an early version of the BASIC engine. This version is not available anymore.</li> 
+</ul>
+I wait for your impressions&nbsp;and bugs. Send me your suggestions, your considerations, your
+corrections; even send me your working BASIC and ALGOL programs, all commented and completed with your own name and data (and six characters per name): they will be part of the next package, of course.
+<hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;">
+<div style="text-align: justify;">It's GPL! Enjoy!<br>
+</div>
+</body>
+</html>
