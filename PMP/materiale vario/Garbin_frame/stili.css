@@ -1,0 +1,127 @@
+body {
+	background: #F5CFC3;
+	color: #4C2816
+	
+}
+
+.titolo20
+{
+	font-family: "Times New Roman";
+	font-size: 20pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #4C2816;
+}
+
+.titolo22
+{
+	font-family: "Times New Roman";
+	font-size: 22pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #4C2816;
+}
+.titolo24
+{
+	font-family: "Times New Roman";
+	font-size: 24pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #4C2816;
+}
+.titolo36
+{
+	font-family: "Times New Roman";
+	font-size: 36pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #4C2816;
+}
+.titolo40
+{
+	font-family: "Times New Roman";
+	font-size: 40pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #4C2816;
+}
+.testo8
+{ 
+   font-family: Verdana;
+   font-size: 8pt;
+   font-style: normal;
+   font-weight: normal;
+   color: #4C2816;
+	
+}
+.testo10
+{ 
+   font-family: Verdana;
+   font-size: 10pt;
+   font-style: normal;
+   font-weight: normal;
+   color: #4C2816;
+	
+}
+.testo12
+{
+	font-family: Verdana;
+   font-size: 12pt;
+   font-style: normal;
+   font-weight: normal;
+   color: #4C2816;
+}
+.testo14
+{
+	font-family: Verdana;
+   font-size: 14pt;
+   font-style: normal;
+   font-weight: normal;
+   color: #4C2816;
+}
+a.simple
+{
+   font-family:Verdana;
+	font-size:10pt;
+	font-style: normal;
+	font-weight: bold;
+	text-decoration:none;
+	color: #4C2816
+}
+
+a:link.simple{color: #4C2816}
+a:visited.simple {color:#4C2816}
+a:hover.simple {color: #ff6600}
+a:active.simple {color:#006633}
+
+a.simplesmall
+{
+   font-family: Verdana;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+	color: #4C2816;
+	
+}
+a:link.simplesmall{color: #4C2816}
+a:visited.simplesmall {color: #4C2816}
+a:hover.simplesmall {color: #ff6600}
+a:active.simplesmall {color:#666600}
+
+a.extrasimple
+{
+   font-family:Verdana;
+	font-size:14pt;
+	font-style: normal;
+	font-weight: bold;
+	text-decoration:none;
+	color: #4C2816
+}
+
+a:link.extrasimple{color: #4C2816}
+a:visited.extrasimple {color:#4C2816}
+a:hover.extrasimple {color: #ff6600}
+a:active.extrasimple {color:#006633}
+
+
