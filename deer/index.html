@@ -37,8 +37,9 @@ which the first BASIC compiler ran in 1964. <span style="font-family: monospace;
 <ul style="text-align: justify;">
   <li>the DTSS Emulator,&nbsp;written in
 bash and working on UNIX or UNIX-like modern system (1964). This engine is named <span style="font-family: monospace;">deer</span>, of course. <span style="font-family: monospace;">deer</span> is largely adaptable because it can be set to use any BASIC or ALGOL compiler, provided you have them installed. </li>
-  <li>the BASIC interpreter, written in C, and emulating the version III of the Original Dartmouth BASIC language (1966). The interpreter is named <span style="font-family: monospace;">dib</span> (which means Dib Is Basic) and, as a standalone executable, may be used even outside of the <span style="font-family: monospace;">deer</span>engine.</li>
+  <li>the BASIC interpreter, written in C, and emulating the version III of the Original Dartmouth BASIC language (1966). The interpreter is named <span style="font-family: monospace;">dib</span> (which means Dib Is Basic) and, as a standalone executable, may be used even outside of the <span style="font-family: monospace;">deer</span> engine.</li>
    <li> The ALGOL interpreter, in the Darthmouth style (with numbered lines, only for input purposes). This emulator (1965) is called <span style="font-family: monospace;">dia</span> (which means Dia Is Algol) and, as <span style="font-family: monospace;">dib</span>, can be used as a standalone executable.</li>
+   <li> The FORTRAN (version IV) interpreter, written in C and emulating the GE-265 Dartmouth FORTRAN language (1966). The interpreter is named <span style="font-family: monospace;">dif</span> (which means Dif Is Fortran) and, as a standalone executable, may be used even outside of the <span style="font-family: monospace;">deer</span> engine.</li>
    </ul>
 <h4 style="text-align: justify;"><a name="Documentation"></a>Documentation</h4>
 <div style="text-align: justify;">
@@ -52,6 +53,8 @@ package and is linked here for your convenience):<br>
 notes about the <span style="font-family: monospace;">dib</span> BASIC language features</li>
   <li>The <span style="font-family: monospace;">dia</span> <a href="doc/dia_manual.pdf">manual</a>
 notes about the <span style="font-family: monospace;">dia</span> ALGOL language features</li>
+  <li>The <span style="font-family: monospace;">dif</span> <a href="doc/dif_manual.pdf">manual</a>
+notes about the <span style="font-family: monospace;">dia</span> FORTRAN language features</li>
 </ul>
 <h4 style="text-align: justify;"><a name="Installation"></a>Installation</h4>
 <div style="text-align: justify;">
@@ -71,9 +74,9 @@ $ cd distrib/<br>
 2) Type:<br><span style="font-family: monospace;">$ make install<br></span> to create the environment and copy the documentation. This requires no root privileges.<br>
 3) Type:<br><span style="font-family: monospace;">$ make maninstall<br></span> to install the man page. If this requires root privileges, type:<br><span style="font-family: monospace;">$ make maninstall<br></span>: you will be requested of the root password to procede.
 <br><br>
-THE <span style="font-family: monospace;">dib</span> AND <span style="font-family: monospace;">dia</span> EXECUTABLES
+THE <span style="font-family: monospace;">dib, dia</span> AND <span style="font-family: monospace;">dif</span> EXECUTABLES
 <br>
-1) Copy the package somewhere, and unpack it using tar:<br>
+1) Copy the package somewhere, and unpack it using tar; for example:<br>
 <span style="font-family: monospace;">$ tar zxvf dib.1.0.beta.tgz<br>
 $ cd distrib/
 </span><br>
@@ -83,26 +86,28 @@ This procedure will install the executable and the relative man page.<br>
 <span style="font-family: monospace;">$ sh deer --help</span><br style="font-family: monospace;">
 <span style="font-family: monospace;">$ dib --help</span><br>
 <span style="font-family: monospace;">$ dia --help</span><br>
-to know they are correctly installed, learn the basic facts,&nbsp;and you're done! If you please, copy the <span style="font-family: monospace;">USER</span> directory (contained in the <span style="font-family: monospace;">distrib/</span> directory) to your home deer directory (which is located under <span style="font-family: monospace;">$HOME/.deer</span>). There you will find&nbsp;many examples, ready to be run.<br>
+<span style="font-family: monospace;">$ dif --help</span><br>
+to know they are correctly installed, learn the basic facts,&nbsp;and you're done! If you please, copy the <span style="font-family: monospace;">USER</span> directory (contained in the <span style="font-family: monospace;">distrib/</span> directory) to your home deer directory (which is located under <span style="font-family: monospace;">$HOME/.deer</span>). There you will find&nbsp;many BASIC examples, ready to be run.<br> In any case, each package has some programs, written in the due language, that can be used into <span style="font-family: monospace;">deer</span>.
 </div>
 <h4 style="text-align: justify;"><a name="Download"></a>Download</h4>
 <span style="text-decoration: underline;">
 Version 1.0.beta</span> (Aug. 10, 2026)<br>
 </div>
 <ul style="text-align: justify;">
-	<li>This is the first beta version with a revised DTSS emulator, the revised BASIC version III (simplified and bettered) and the ALGOL engine (directly from <a href="../taxi/">taxi</a>; the FORTRAN engine (dif) is being designed and will be available hopfully soon.</li><br>
+	<li>This is the first beta version of the revised DTSS emulator and the revised BASIC version III (simplified and bettered); the ALGOL engine (directly from <a href="../taxi/">taxi</a> and the FORTRAN engine are on the alpha version, instead.</li><br>
     Download <a href="distrib/deer.1.0.beta.src.tgz">deer Beta</a><br>
     Download <a href="distrib/dib.1.0.beta.src.tgz">dib Beta</a><br>
-    Download <a href="distrib/dia.1.0.beta.src.tgz">dia Alpha</a><br>
+    Download <a href="distrib/dia.1.0.alpha.src.tgz">dia Alpha</a><br>
+    Download <a href="distrib/dif.1.0.alpha.src.tgz">dif Alpha</a><br>
 </ul>
 <div style="text-align: justify;">
 <span style="text-decoration: underline;">
 	Version 1.0.alpha</span> (Dec. 06, 2008)<br>
 </div>
 <ul style="text-align: justify;">
-  <li>This was the first complete uploaded version Alpha, with a reduced and limited version of the DTSS emulator and an early version of the BASIC engine. This version is not available anymore, because of the many errors and mistakes it had, hopefully solved in the Beta version.</li> 
+  <li>This was the first complete uploaded alpha version, with a limited version of the DTSS emulator and an early version of the BASIC engine. This version is not available anymore, because of the many errors and mistakes it had, hopefully solved in the Beta versions.</li> 
 </ul>
-I wait for your impressions&nbsp;and bugs. Send me your suggestions, your considerations, your
+I wait for your impressions and bugs. Send me your suggestions, your considerations, your
 corrections; even send me your working BASIC and ALGOL programs, all commented and completed with your own name and data (and six characters per name): they will be part of the next package, of course.
 <hr style="width: 100%; height: 2px; margin-left: 0px; margin-right: 0px;">
 <div style="text-align: justify;">It's GPL! Enjoy!<br>
